@@ -23,7 +23,7 @@ export default function SummaryBlock() {
       <Grid item xs={12} md={6} lg={3}>
         <SummaryBox
           title="Infections"
-          count={stats && stats.cases}
+          count={stats && stats.recovered}
           type="info"
         />
       </Grid>
@@ -33,7 +33,7 @@ export default function SummaryBlock() {
       <Grid item xs={12} md={6} lg={3}>
         <SummaryBox
           title="Recoveries"
-          count={stats && stats.recovered}
+          count={stats && stats.cases}
           type="success"
         />
       </Grid>

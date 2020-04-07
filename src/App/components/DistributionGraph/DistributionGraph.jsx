@@ -66,7 +66,7 @@ function App() {
   return (
     <Grid item xs={12} md={6} lg={4}>
       <Paper style={{ position: "relative" }}>
-        <div id="pieChart" style={{ width: "100%", height: "500px" }}></div>
+        <div id="pieChart" style={{ width: "100%", height: "400px" }}></div>
       </Paper>
     </Grid>
   );

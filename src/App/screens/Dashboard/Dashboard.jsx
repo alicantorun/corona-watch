@@ -7,6 +7,9 @@ import WorldMapGraph from "../../components/WorldMapGraph/WorldMapGraph";
 import InfectionsGraph from "../../components/InfectionsGraph/InfectionsGraph";
 import RateGraph from "../../components/RateGraph/RateGraph";
 import DistributionGraph from "../../components/DistributionGraph/DistributionGraph";
+import InfectionRatesBlock from "../../components/InfectionRatesBlock/InfectionRatesBlock";
+import Counter from "../../components/Counter/Counter";
+import Creator from "../../components/Creator/Creator";
 function Dashboard() {
   return (
     <div>
@@ -23,6 +26,20 @@ function Dashboard() {
           <RateGraph />
           <InfectionsGraph />
           <DistributionGraph />
+          <InfectionRatesBlock />
+          <Grid
+            container
+            item
+            xs={12}
+            lg={4}
+            // spacing={2}
+
+            //   className={classes.root}
+            // spacing={2}
+          >
+            <Counter />
+            <Creator />
+          </Grid>
         </Grid>
       </Container>
     </div>
