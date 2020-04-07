@@ -4,6 +4,7 @@ import { Grid, Paper } from "@material-ui/core";
 import CountrySearch from "../CountrySearch/CountrySearch";
 import CountrySort from "../CountrySort/CountrySort";
 import VirtualizedTable from "../VirtualizedTable/VirtualizedTable";
+import { compare } from "../../utils/compare";
 const useStyles = makeStyles((theme) => ({}));
 
 export default function CountryList() {
@@ -18,20 +19,6 @@ export default function CountryList() {
     }
     fetchList();
   }, []);
-
-  function compare(a, b) {
-    // Use toUpperCase() to ignore character casing
-    const countryA = a.cases;
-    const countryB = b.cases;
-
-    let comparison = 0;
-    if (countryA > countryB) {
-      comparison = -1;
-    } else if (countryA < countryB) {
-      comparison = 1;
-    }
-    return comparison;
-  }
 
   return (
     <>

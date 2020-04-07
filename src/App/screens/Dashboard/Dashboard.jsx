@@ -3,8 +3,10 @@ import Header from "../../components/Header/Header";
 import { Container, Grid } from "@material-ui/core";
 import CountryList from "../../components/CountryList/CountryList";
 import SummaryBlock from "../../components/SummaryBlock/SummaryBlock";
-import WorldMap from "../../components/WorldMap/WorldMap";
+import WorldMapGraph from "../../components/WorldMapGraph/WorldMapGraph";
 import InfectionsGraph from "../../components/InfectionsGraph/InfectionsGraph";
+import RateGraph from "../../components/RateGraph/RateGraph";
+import DistributionGraph from "../../components/DistributionGraph/DistributionGraph";
 function Dashboard() {
   return (
     <div>
@@ -17,8 +19,10 @@ function Dashboard() {
         >
           <SummaryBlock />
           <CountryList />
-          <WorldMap />
+          <WorldMapGraph />
+          <RateGraph />
           <InfectionsGraph />
+          <DistributionGraph />
         </Grid>
       </Container>
     </div>

@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Paper, Box, Chip } from "@material-ui/core";
+import {
+  Grid,
+  Paper,
+  Box,
+  Chip,
+  Switch,
+  FormGroup,
+  FormControlLabel,
+} from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 
 import * as am4core from "@amcharts/amcharts4/core";
@@ -11,7 +19,13 @@ am4core.useTheme(am4themes_animated);
 function App() {
   const [data, setData] = useState([]);
   const [mapState, setMapState] = useState("cases");
+  const [logMap, setLogMap] = React.useState(false);
+
   const theme = useTheme();
+
+  const handleChange = (event) => {
+    setLogMap(event.target.checked);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -62,7 +76,7 @@ function App() {
       return chart;
     }
 
-    function drawMap() {
+    function drawMap(chartType) {
       //   Object.keys(this.timeLine).forEach((key) => {
       //     this.caseData.push({
       //       date: new Date(key),
@@ -89,13 +103,13 @@ function App() {
       dateAxis.renderer.minGridDistance = 50;
 
       let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-      //   valueAxis.logarithmic = chartType;
+      valueAxis.logarithmic = chartType;
       valueAxis.renderer.labels.template.fill = am4core.color("#adb5bd");
       dateAxis.renderer.labels.template.fill = am4core.color("#adb5bd");
 
-      createSeriesLine(chart, "#21AFDD", "cases");
-      createSeriesLine(chart, "#10c469", "recoveries");
-      createSeriesLine(chart, "#ff5b5b", "deaths");
+      createSeriesLine(chart, theme.palette.info.main, "cases");
+      createSeriesLine(chart, theme.palette.success.main, "recoveries");
+      createSeriesLine(chart, theme.palette.error.main, "deaths");
 
       chart.data = data;
 
@@ -106,13 +120,32 @@ function App() {
       //   this.lineChart = chart;
     }
 
-    drawMap();
+    drawMap(logMap);
   });
 
   return (
     <Grid item xs={12} md={6} lg={8}>
       <Paper style={{ position: "relative" }}>
         <div id="lineChart" style={{ width: "100%", height: "500px" }}></div>
+        <div
+          style={{
+            position: "absolute",
+            top: theme.spacing(2),
+            right: theme.spacing(2),
+          }}
+        >
+          <FormControlLabel
+            control={
+              <Switch
+                checked={logMap}
+                onChange={handleChange}
+                color="primary"
+                inputProps={{ "aria-label": "checkbox with default color" }}
+              />
+            }
+            label="Logarithmic"
+          />
+        </div>
       </Paper>
     </Grid>
   );
