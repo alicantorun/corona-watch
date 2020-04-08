@@ -34,7 +34,7 @@ function AppDashboard(props) {
 
   return (
     <div>
-      {/* <Header /> */}
+      <Header />
       <Container maxWidth="lg">
         <Grid
           container
