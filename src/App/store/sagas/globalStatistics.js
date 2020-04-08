@@ -1,21 +1,21 @@
 import { call, select, delay, put } from "redux-saga/effects";
 import api from "../../../API";
-import { Creators as GlobalCreators } from "../ducks/globalStatistics";
+import { Creators as GlobalStatisticsCreators } from "../ducks/globalStatistics";
 import { compare } from "../../utils/compare";
 import countryCodes from "../../utils/countryCodes.json";
 import { useTheme } from "@material-ui/core/styles";
 
-export function* getSummaryStatictics() {
+export function* getGlobalSummaryStatistics() {
   try {
     const { data } = yield call(api.get, "/all");
 
-    yield put(GlobalCreators.getSummaryStaticticsSuccess(data));
+    yield put(GlobalStatisticsCreators.getGlobalSummaryStatisticsSuccess(data));
   } catch (err) {
-    yield put(GlobalCreators.getSummaryStaticticsFailure());
+    yield put(GlobalStatisticsCreators.getGlobalSummaryStatisticsFailure());
   }
 }
 
-export function* getCountriesStatictics() {
+export function* getGlobalCountryStatistics() {
   try {
     let modifiedData = [];
     const { data } = yield call(api.get, "/countries");
@@ -36,16 +36,14 @@ export function* getCountriesStatictics() {
         casesPerOneMillion: element.casesPerOneMillion,
         deathsPerOneMillion: element.deathsPerOneMillion,
         name: element.country,
-        colorCases: "info",
-        colorCritical: "warning",
-        colorRecovered: "success",
-        colorDeaths: "error",
       });
     });
 
-    yield put(GlobalCreators.getCountriesStaticticsSuccess(modifiedData));
+    yield put(
+      GlobalStatisticsCreators.getGlobalCountryStatisticsSuccess(modifiedData)
+    );
   } catch (err) {
-    yield put(GlobalCreators.getCountriesStaticticsFailure());
+    yield put(GlobalStatisticsCreators.getGlobalCountryStatisticsFailure());
   }
 }
 
@@ -64,8 +62,10 @@ export function* getGlobalTimelineStatistics() {
       });
     });
 
-    yield put(GlobalCreators.getGlobalTimelineStatisticsSuccess(modifiedData));
+    yield put(
+      GlobalStatisticsCreators.getGlobalTimelineStatisticsSuccess(modifiedData)
+    );
   } catch (err) {
-    yield put(GlobalCreators.getGlobalTimelineStatisticsFailure());
+    yield put(GlobalStatisticsCreators.getGlobalTimelineStatisticsFailure());
   }
 }

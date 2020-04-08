@@ -18,8 +18,8 @@ import LinearLoading from "../LinearLoading/LinearLoading";
 
 am4core.useTheme(am4themes_animated);
 
-function InfectionsGraph({ globalTimelineData }) {
-  const { data, loading, error } = globalTimelineData;
+function InfectionsGraph({ timelineData }) {
+  const { data, loading, error } = timelineData;
   const [logMap, setLogMap] = React.useState(false);
   const theme = useTheme();
 

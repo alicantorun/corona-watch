@@ -27,22 +27,11 @@ export default function InfectionRateBox({
     <Paper>
       <Box padding={2}>
         <Typography>
-          <Box
-            fontFamily="Monospace"
-            textAlign="center"
-            fontSize="h4.fontSize"
-            m={1}
-            color={color}
-          >
+          <Box textAlign="center" fontSize="h4.fontSize" m={1} color={color}>
             {count}
           </Box>
         </Typography>
-        <Box
-          fontFamily="Monospace"
-          fontSize="h6.fontSize"
-          textAlign="center"
-          m={1}
-        >
+        <Box fontSize="h6.fontSize" textAlign="center" m={1}>
           {title}
         </Box>
         <Divider

@@ -13,10 +13,10 @@ import LinearLoading from "../LinearLoading/LinearLoading";
 
 am4core.useTheme(am4themes_animated);
 
-function WorldMapGraph({ countriesData }) {
+function WorldMapGraph({ countryData }) {
   const [mapState, setMapState] = useState("cases");
   const theme = useTheme();
-  const { data, loading, error } = countriesData;
+  const { data, loading, error } = countryData;
 
   am4core.ready(function () {
     let chartMap = am4core.create("chartdiv", am4maps.MapChart);
@@ -94,8 +94,8 @@ function WorldMapGraph({ countriesData }) {
 
       let polygonTemplate = polygonSeries.mapPolygons.template;
       polygonTemplate.tooltipText = "{name}";
-      polygonTemplate.fill = am4core.color("#fff");
-      polygonTemplate.stroke = am4core.color("#313a46");
+      polygonTemplate.fill = am4core.color(theme.palette.background.default);
+      polygonTemplate.stroke = am4core.color(theme.palette.background.paper);
     }
 
     !loading && !error && drawMap(mapState);
@@ -106,7 +106,6 @@ function WorldMapGraph({ countriesData }) {
       <Paper style={{ position: "relative" }}>
         {loading && !error && <LinearLoading />}
         <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
-
         <>
           <div
             style={{

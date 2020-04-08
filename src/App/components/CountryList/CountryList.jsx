@@ -8,17 +8,8 @@ import { compare } from "../../utils/compare";
 import LinearLoading from "../LinearLoading/LinearLoading";
 const useStyles = makeStyles((theme) => ({}));
 
-export default function CountryList({ countriesData }) {
-  const { data, loading, error } = countriesData;
-
-  // useEffect(() => {
-  //   async function fetchList() {
-  //     const rawResponse = await fetch("/countries");
-  //     const response = await rawResponse.json();
-  //     setStats(response.sort(compare));
-  //   }
-  //   fetchList();
-  // }, []);
+export default function CountryList({ countryData }) {
+  const { data, loading, error } = countryData;
 
   return (
     <>

@@ -25,12 +25,7 @@ function Counter() {
       <Paper>
         <Box padding={2}>
           <Typography>
-            <Box
-              fontFamily="Monospace"
-              textAlign="center"
-              fontSize="h4.fontSize"
-              m={1}
-            >
+            <Box textAlign="center" fontSize="h4.fontSize" m={1}>
               Outbreak Started
             </Box>
           </Typography>
@@ -39,12 +34,7 @@ function Counter() {
             {() => (
               <React.Fragment>
                 <Typography>
-                  <Box
-                    fontFamily="Monospace"
-                    textAlign="center"
-                    fontSize="h4.fontSize"
-                    m={1}
-                  >
+                  <Box textAlign="center" fontSize="h4.fontSize" m={1}>
                     <Table align="center">
                       <TableRow>
                         <TableCell align="center">

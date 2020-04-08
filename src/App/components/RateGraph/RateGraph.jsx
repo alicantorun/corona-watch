@@ -27,22 +27,22 @@ function RateGraph({ summaryData }) {
       chart.data = [
         {
           category: "Critical",
-          value: (data.critical / data.activeCases) * 100,
+          value: (data.critical / data.active) * 100,
           full: 100,
         },
         {
           category: "Death",
-          value: (data.deaths / data.closedCases) * 100,
+          value: (data.deaths / (data.cases - data.active)) * 100,
           full: 100,
         },
         {
           category: "Recovered",
-          value: (data.recovered / data.closedCases) * 100,
+          value: (data.recovered / (data.cases - data.active)) * 100,
           full: 100,
         },
         {
           category: "Active",
-          value: 100 - (data.critical / data.activeCases) * 100,
+          value: 100 - (data.critical / data.active) * 100,
           full: 100,
         },
       ];

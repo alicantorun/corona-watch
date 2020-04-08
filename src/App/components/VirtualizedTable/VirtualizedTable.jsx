@@ -3,6 +3,8 @@ import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 import { AutoSizer, Column, Table } from "react-virtualized";
+import { Link } from "react-router-dom";
+import { history } from "../../_helpers/history";
 
 const styles = (theme) => ({
   flexContainer: {
@@ -101,6 +103,9 @@ class MuiVirtualizedTable extends React.PureComponent {
       <AutoSizer>
         {({ height, width }) => (
           <Table
+            onRowClick={(i) => {
+              history.push(i.rowData.country);
+            }}
             height={height}
             width={width}
             rowHeight={rowHeight}

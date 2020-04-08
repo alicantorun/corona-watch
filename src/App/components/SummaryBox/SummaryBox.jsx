@@ -31,7 +31,7 @@ export default function SummaryBox({
         {loading && !error && <LinearLoading />}
         {/* {!loading && error && (
           <Box
-            fontFamily="Monospace"
+            
             fontSize="h6.fontSize"
             textAlign="center"
             m={1}
@@ -41,15 +41,10 @@ export default function SummaryBox({
         )} */}
         {!loading && !error && (
           <>
-            <Box fontFamily="Monospace" fontSize="h6.fontSize" m={1}>
+            <Box fontSize="h6.fontSize" m={1}>
               {title}
             </Box>
-            <Box
-              fontFamily="Monospace"
-              fontSize="h6.fontSize"
-              textAlign="right"
-              m={1}
-            >
+            <Box fontSize="h6.fontSize" textAlign="right" m={1}>
               {count}
             </Box>
             <Divider

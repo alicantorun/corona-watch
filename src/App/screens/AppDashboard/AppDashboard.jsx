@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -16,41 +16,38 @@ import InfectionRatesBlock from "../../components/InfectionRatesBlock/InfectionR
 import Counter from "../../components/Counter/Counter";
 import Creator from "../../components/Creator/Creator";
 
-import { GET_ALL, GET_COUNTRIES } from "../../../API";
-
 function AppDashboard(props) {
   const {
-    getSummaryStatictics,
-    getCountriesStatictics,
+    getGlobalSummaryStatistics,
+    getGlobalCountryStatistics,
     getGlobalTimelineStatistics,
     globalStatistics,
   } = props;
 
-  const { summaryData, globalTimelineData, countriesData } = globalStatistics;
+  const { summaryData, timelineData, countryData } = globalStatistics;
 
   useEffect(() => {
-    getSummaryStatictics();
-    getCountriesStatictics();
+    getGlobalSummaryStatistics();
+    getGlobalCountryStatistics();
     getGlobalTimelineStatistics();
   }, []);
 
   return (
     <div>
       {/* <Header /> */}
-      <Container maxWidth="2000">
+      <Container maxWidth="lg">
         <Grid
           container
           //   className={classes.root}
           spacing={2}
         >
           <SummaryBlock summaryData={summaryData} />
-          <CountryList countriesData={countriesData} />
-          <WorldMapGraph countriesData={countriesData} />
+          <CountryList countryData={countryData} />
+          <WorldMapGraph countryData={countryData} />
           <RateGraph summaryData={summaryData} />
-          <InfectionsGraph globalTimelineData={globalTimelineData} />
-          {/* 
-          <DistributionGraph />
-          <InfectionRatesBlock /> */}
+          <InfectionsGraph timelineData={timelineData} />
+          <DistributionGraph type="global" countryData={countryData} />
+          <InfectionRatesBlock summaryData={summaryData} />
           <Grid
             container
             item
@@ -61,8 +58,8 @@ function AppDashboard(props) {
             //   className={classes.root}
             // spacing={2}
           >
-            {/* <Counter /> */}
-            {/* <Creator /> */}
+            <Counter />
+            <Creator />
           </Grid>
         </Grid>
       </Container>

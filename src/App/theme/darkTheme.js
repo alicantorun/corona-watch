@@ -2,6 +2,10 @@ import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 
 let theme = createMuiTheme({
   palette: {
+    background: {
+      default: "#17223b",
+      paper: "#263859",
+    },
     type: "dark",
     primary: {
       light: "#757ce8",
@@ -16,15 +20,14 @@ let theme = createMuiTheme({
       contrastText: "#000",
     },
   },
-  overrides: {
-    MuiCssBaseline: {
-      "@global": {
-        body: {
-          background: "linear-gradient(to right, #f3f3f3, #ffffff)",
-        },
-      },
-    },
-  },
 });
 theme = responsiveFontSizes(theme);
 export default theme;
+
+/*
+Palette
+17223b
+263859
+6b778d
+ff6768
+*/

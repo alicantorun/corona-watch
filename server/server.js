@@ -42,17 +42,7 @@ var getAll = async () => {
     }
   });
 
-  const closedCases = parseInt(
-    html(
-      "body > div.container > div:nth-child(2) > div.col-md-8 > div > div:nth-child(15) > div > div.panel-body > div > div.panel_front > div.number-table-main"
-    )
-      .html()
-      .replace(/,/g, "") || "0",
-    10
-  );
-  result.closedCases = closedCases;
-
-  const activeCases = parseInt(
+  const active = parseInt(
     html(
       "body > div.container > div:nth-child(2) > div.col-md-8 > div > div:nth-child(14) > div > div.panel-body > div > div.panel_front > div.number-table-main"
     )
@@ -60,7 +50,7 @@ var getAll = async () => {
       .replace(/,/g, "") || "0",
     10
   );
-  result.activeCases = activeCases;
+  result.active = active;
 
   const critical = parseInt(
     html(
@@ -71,7 +61,7 @@ var getAll = async () => {
     10
   );
   result.critical = critical;
-
+  result.closed = result.cases - result.active;
   result.updated = Date.now();
   const string = JSON.stringify(result);
   redis.set(keys.all, string);
