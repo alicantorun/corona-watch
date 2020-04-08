@@ -7,15 +7,16 @@ import { Provider } from "react-redux";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import defaultTheme from "./App/theme/defaultTheme";
 import { CssBaseline } from "@material-ui/core";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <MuiThemeProvider theme={defaultTheme}>
-      <CssBaseline />
-      <Provider store={store}>
+  <Provider store={store}>
+    <BrowserRouter>
+      <MuiThemeProvider theme={defaultTheme}>
+        <CssBaseline />
         <App />
-      </Provider>
-    </MuiThemeProvider>
-  </React.StrictMode>,
+      </MuiThemeProvider>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );

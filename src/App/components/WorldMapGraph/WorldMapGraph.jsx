@@ -9,42 +9,14 @@ import * as am4maps from "@amcharts/amcharts4/maps";
 
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
+import LinearLoading from "../LinearLoading/LinearLoading";
 
 am4core.useTheme(am4themes_animated);
 
-function App() {
-  const [data, setData] = useState([]);
+function WorldMapGraph({ countriesData }) {
   const [mapState, setMapState] = useState("cases");
   const theme = useTheme();
-
-  useEffect(() => {
-    async function fetchData() {
-      let mapData = [];
-      const rawResponse = await fetch("/countries");
-      const response = await rawResponse.json();
-      await response.forEach((element) => {
-        mapData.push({
-          id: countryCodes[element.country],
-          cases: element.cases,
-          todayCases: element.todayCases,
-          deaths: element.deaths,
-          todayDeaths: element.todayDeaths,
-          recovered: element.recovered,
-          active: element.active,
-          critical: element.critical,
-          casesPerOneMillion: element.casesPerOneMillion,
-          deathsPerOneMillion: element.deathsPerOneMillion,
-          name: element.country,
-          colorCases: theme.palette.info.main,
-          colorCritical: theme.palette.warning.main,
-          colorRecovered: theme.palette.success.main,
-          colorDeaths: theme.palette.error.main,
-        });
-      });
-      setData(mapData);
-    }
-    fetchData();
-  }, []);
+  const { data, loading, error } = countriesData;
 
   am4core.ready(function () {
     let chartMap = am4core.create("chartdiv", am4maps.MapChart);
@@ -54,16 +26,16 @@ function App() {
     function getColor(mapState) {
       switch (mapState) {
         case "cases":
-          return "colorCases";
+          return theme.palette.info.main;
           break;
         case "recovered":
-          return "colorRecovered";
+          return theme.palette.success.main;
           break;
         case "deaths":
-          return "colorDeaths";
+          return theme.palette.error.main;
           break;
         case "critical":
-          return "colorCritical";
+          return theme.palette.warning.main;
           break;
 
         default:
@@ -88,8 +60,9 @@ function App() {
 
       let circle = imageTemplate.createChild(am4core.Circle);
       circle.fillOpacity = 0.7;
-      circle.propertyFields.fill = getColor(mapState);
+
       circle.tooltipText = "{name}: [bold]{value}[/]";
+      circle.fill = getColor(mapState);
 
       imageSeries.heatRules.push({
         target: circle,
@@ -125,45 +98,48 @@ function App() {
       polygonTemplate.stroke = am4core.color("#313a46");
     }
 
-    drawMap(mapState);
+    !loading && !error && drawMap(mapState);
   });
 
-  console.log(data);
   return (
     <Grid item xs={12} md={6} lg={8}>
       <Paper style={{ position: "relative" }}>
+        {loading && !error && <LinearLoading />}
         <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
-        <div
-          style={{
-            position: "absolute",
-            top: theme.spacing(2),
-            right: theme.spacing(2),
-          }}
-        >
-          <Chip
-            style={{ backgroundColor: theme.palette.info.main }}
-            label="Cases"
-            onClick={() => setMapState("cases")}
-          />
-          <Chip
-            style={{ backgroundColor: theme.palette.error.main }}
-            label="Deaths"
-            onClick={() => setMapState("deaths")}
-          />
-          <Chip
-            style={{ backgroundColor: theme.palette.warning.main }}
-            label="Critical"
-            onClick={() => setMapState("critical")}
-          />
-          <Chip
-            style={{ backgroundColor: theme.palette.success.main }}
-            label="Recoveries"
-            onClick={() => setMapState("recovered")}
-          />
-        </div>
+
+        <>
+          <div
+            style={{
+              position: "absolute",
+              top: theme.spacing(2),
+              right: theme.spacing(2),
+            }}
+          >
+            <Chip
+              style={{ backgroundColor: theme.palette.info.main }}
+              label="Cases"
+              onClick={() => setMapState("cases")}
+            />
+            <Chip
+              style={{ backgroundColor: theme.palette.error.main }}
+              label="Deaths"
+              onClick={() => setMapState("deaths")}
+            />
+            <Chip
+              style={{ backgroundColor: theme.palette.warning.main }}
+              label="Critical"
+              onClick={() => setMapState("critical")}
+            />
+            <Chip
+              style={{ backgroundColor: theme.palette.success.main }}
+              label="Recoveries"
+              onClick={() => setMapState("recovered")}
+            />
+          </div>
+        </>
       </Paper>
     </Grid>
   );
 }
 
-export default App;
+export default WorldMapGraph;

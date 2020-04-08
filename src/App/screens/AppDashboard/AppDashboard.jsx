@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from "react";
+
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { Creators as GlobalStatisticsCreators } from "../../store/ducks/globalStatistics";
+
 import Header from "../../components/Header/Header";
 import { Container, Grid } from "@material-ui/core";
 import CountryList from "../../components/CountryList/CountryList";
@@ -10,7 +15,25 @@ import DistributionGraph from "../../components/DistributionGraph/DistributionGr
 import InfectionRatesBlock from "../../components/InfectionRatesBlock/InfectionRatesBlock";
 import Counter from "../../components/Counter/Counter";
 import Creator from "../../components/Creator/Creator";
-function Dashboard() {
+
+import { GET_ALL, GET_COUNTRIES } from "../../../API";
+
+function AppDashboard(props) {
+  const {
+    getSummaryStatictics,
+    getCountriesStatictics,
+    getGlobalTimelineStatistics,
+    globalStatistics,
+  } = props;
+
+  const { summaryData, globalTimelineData, countriesData } = globalStatistics;
+
+  useEffect(() => {
+    getSummaryStatictics();
+    getCountriesStatictics();
+    getGlobalTimelineStatistics();
+  }, []);
+
   return (
     <div>
       {/* <Header /> */}
@@ -20,13 +43,14 @@ function Dashboard() {
           //   className={classes.root}
           spacing={2}
         >
-          <SummaryBlock />
-          <CountryList />
-          <WorldMapGraph />
-          <RateGraph />
-          <InfectionsGraph />
+          <SummaryBlock summaryData={summaryData} />
+          <CountryList countriesData={countriesData} />
+          <WorldMapGraph countriesData={countriesData} />
+          <RateGraph summaryData={summaryData} />
+          <InfectionsGraph globalTimelineData={globalTimelineData} />
+          {/* 
           <DistributionGraph />
-          <InfectionRatesBlock />
+          <InfectionRatesBlock /> */}
           <Grid
             container
             item
@@ -37,8 +61,8 @@ function Dashboard() {
             //   className={classes.root}
             // spacing={2}
           >
-            <Counter />
-            <Creator />
+            {/* <Counter /> */}
+            {/* <Creator /> */}
           </Grid>
         </Grid>
       </Container>
@@ -46,4 +70,11 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(GlobalStatisticsCreators, dispatch);
+
+const mapStateToProps = (state) => ({
+  globalStatistics: state.globalStatistics,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppDashboard);

@@ -13,25 +13,12 @@ import { useTheme } from "@material-ui/core/styles";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import LinearLoading from "../LinearLoading/LinearLoading";
 
 am4core.useTheme(am4themes_animated);
 
-function App() {
-  const [data, setData] = useState([]);
-  const [mapState, setMapState] = useState("cases");
-
-  const theme = useTheme();
-
-  useEffect(() => {
-    async function fetchData() {
-      const rawResponse = await fetch("/all");
-      const response = await rawResponse.json();
-      setData(response);
-    }
-    fetchData();
-  }, []);
-
-  console.log(data);
+function RateGraph({ summaryData }) {
+  const { data, loading, error } = summaryData;
 
   am4core.ready(function () {
     let chart = am4core.create("radarChart", am4charts.RadarChart);
@@ -133,25 +120,22 @@ function App() {
         return am4core.color("#21AFDD");
       });
 
-      // Add cursor
       chart.cursor = new am4charts.RadarCursor();
       chart.cursor.fill = am4core.color("#282e38");
       chart.tooltip.label.fill = am4core.color("#282e38");
-
-      // this.radarChart = chart;
-      //   this.lineChart = chart;
     }
 
-    drawMap();
+    !loading && !error && drawMap();
   });
 
   return (
     <Grid item xs={12} md={6} lg={4}>
       <Paper style={{ position: "relative" }}>
+        {loading && !error && <LinearLoading />}
         <div id="radarChart" style={{ width: "100%", height: "500px" }}></div>
       </Paper>
     </Grid>
   );
 }
 
-export default App;
+export default RateGraph;

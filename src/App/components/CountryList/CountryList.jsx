@@ -5,60 +5,63 @@ import CountrySearch from "../CountrySearch/CountrySearch";
 import CountrySort from "../CountrySort/CountrySort";
 import VirtualizedTable from "../VirtualizedTable/VirtualizedTable";
 import { compare } from "../../utils/compare";
+import LinearLoading from "../LinearLoading/LinearLoading";
 const useStyles = makeStyles((theme) => ({}));
 
-export default function CountryList() {
-  const [stats, setStats] = useState([]);
-  // const classes = useStyles();
+export default function CountryList({ countriesData }) {
+  const { data, loading, error } = countriesData;
 
-  useEffect(() => {
-    async function fetchList() {
-      const rawResponse = await fetch("/countries");
-      const response = await rawResponse.json();
-      setStats(response.sort(compare));
-    }
-    fetchList();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchList() {
+  //     const rawResponse = await fetch("/countries");
+  //     const response = await rawResponse.json();
+  //     setStats(response.sort(compare));
+  //   }
+  //   fetchList();
+  // }, []);
 
   return (
     <>
       <Grid item xs={12} md={6} lg={4}>
         <Paper style={{ height: 500, width: "100%" }}>
-          <VirtualizedTable
-            rowCount={stats && stats.length}
-            rowGetter={({ index }) => stats && stats[index]}
-            columns={[
-              {
-                width: 200,
-                label: "Country",
-                dataKey: "country",
-              },
-              {
-                width: 120,
-                label: "Cases",
-                dataKey: "cases",
-                numeric: true,
-              },
-              {
-                width: 120,
-                label: "Deaths",
-                dataKey: "deaths",
-                numeric: true,
-              },
-              {
-                width: 120,
-                label: "Todays Cases",
-                dataKey: "todayCases",
-                numeric: true,
-              },
-              {
-                width: 120,
-                label: "Todays Deaths",
-                dataKey: "todayDeaths",
-                numeric: true,
-              },
-            ]}
-          />
+          {loading && !error && <LinearLoading />}
+          {!loading && !error && (
+            <VirtualizedTable
+              rowCount={data && data.length}
+              rowGetter={({ index }) => data && data[index]}
+              columns={[
+                {
+                  width: 200,
+                  label: "Country",
+                  dataKey: "country",
+                },
+                {
+                  width: 120,
+                  label: "Cases",
+                  dataKey: "cases",
+                  numeric: true,
+                },
+                {
+                  width: 120,
+                  label: "Deaths",
+                  dataKey: "deaths",
+                  numeric: true,
+                },
+                {
+                  width: 120,
+                  label: "Todays Cases",
+                  dataKey: "todayCases",
+                  numeric: true,
+                },
+                {
+                  width: 120,
+                  label: "Todays Deaths",
+                  dataKey: "todayDeaths",
+                  numeric: true,
+                },
+              ]}
+            />
+          )}
         </Paper>
         {/* <CountrySearch />
         <CountrySort /> */}

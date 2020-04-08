@@ -14,43 +14,18 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
+import LinearLoading from "../LinearLoading/LinearLoading";
+
 am4core.useTheme(am4themes_animated);
 
-function App() {
-  const [data, setData] = useState([]);
-  const [mapState, setMapState] = useState("cases");
+function InfectionsGraph({ globalTimelineData }) {
+  const { data, loading, error } = globalTimelineData;
   const [logMap, setLogMap] = React.useState(false);
-
   const theme = useTheme();
 
   const handleChange = (event) => {
     setLogMap(event.target.checked);
   };
-
-  useEffect(() => {
-    async function fetchData() {
-      let mapData = [];
-      const rawResponse = await fetch("/timeline/global");
-      const response = await rawResponse.json();
-
-      Object.keys(response).forEach((key) => {
-        mapData.push({
-          date: new Date(key),
-          cases: response[key].cases,
-          recoveries: response[key].recovered,
-          deaths: response[key].deaths,
-        });
-      });
-      //   mapData.push({
-      //     date: new Date().getTime(),
-      //     cases: this.totalCases,
-      //     recoveries: this.totalRecoveries,
-      //     deaths: this.totalDeaths
-      //   });
-      setData(mapData);
-    }
-    fetchData();
-  }, []);
 
   am4core.ready(function () {
     let chart = am4core.create("lineChart", am4charts.XYChart);
@@ -77,21 +52,6 @@ function App() {
     }
 
     function drawMap(chartType) {
-      //   Object.keys(this.timeLine).forEach((key) => {
-      //     this.caseData.push({
-      //       date: new Date(key),
-      //       cases: this.timeLine[key].cases,
-      //       recoveries: this.timeLine[key].recovered,
-      //       deaths: this.timeLine[key].deaths,
-      //     });
-      //   });
-      // this.caseData.push({
-      //   date: new Date().getTime(),
-      //   cases: this.totalCases,
-      //   recoveries: this.totalRecoveries,
-      //   deaths: this.totalDeaths,
-      // });
-
       chart.numberFormatter.numberFormat = "#a";
       chart.numberFormatter.bigNumberPrefixes = [
         { number: 1e3, suffix: "K" },
@@ -117,10 +77,9 @@ function App() {
       chart.legend.labels.template.fill = am4core.color("#adb5bd");
 
       chart.cursor = new am4charts.XYCursor();
-      //   this.lineChart = chart;
     }
 
-    drawMap(logMap);
+    !loading && !error && drawMap(logMap);
   });
 
   return (
@@ -151,4 +110,4 @@ function App() {
   );
 }
 
-export default App;
+export default InfectionsGraph;

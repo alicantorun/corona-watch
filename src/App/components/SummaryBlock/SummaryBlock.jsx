@@ -5,43 +5,49 @@ import SummaryBox from "../SummaryBox/SummaryBox";
 
 // const useStyles = makeStyles((theme) => ({}));
 
-export default function SummaryBlock() {
-  const [stats, setStats] = useState();
-  //   const classes = useStyles();
-
-  useEffect(() => {
-    async function fetchList() {
-      const rawResponse = await fetch("/all");
-      const response = await rawResponse.json();
-      setStats(response);
-    }
-    fetchList();
-  }, []);
+export default function SummaryBlock({ summaryData }) {
+  const { data, loading, error } = summaryData;
 
   return (
     <>
       <Grid item xs={12} md={6} lg={3}>
         <SummaryBox
           title="Infections"
-          count={stats && stats.recovered}
+          count={data && data.recovered}
           type="info"
+          loading={loading}
+          error={error}
+          data={data}
         />
       </Grid>
       <Grid item xs={12} md={6} lg={3}>
-        <SummaryBox title="Deaths" count={stats && stats.deaths} type="error" />
+        <SummaryBox
+          title="Deaths"
+          count={data && data.deaths}
+          loading={loading}
+          error={error}
+          data={data}
+          type="error"
+        />
       </Grid>
       <Grid item xs={12} md={6} lg={3}>
         <SummaryBox
           title="Recoveries"
-          count={stats && stats.cases}
+          count={data && data.cases}
           type="success"
+          loading={loading}
+          error={error}
+          data={data}
         />
       </Grid>
       <Grid item xs={12} md={6} lg={3}>
         <SummaryBox
           title="Critical"
-          count={stats && stats.critical}
+          count={data && data.critical}
           type="warning"
+          loading={loading}
+          error={error}
+          data={data}
         />
       </Grid>
     </>
