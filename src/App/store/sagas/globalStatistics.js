@@ -7,7 +7,7 @@ import { useTheme } from "@material-ui/core/styles";
 
 export function* getGlobalSummaryStatistics() {
   try {
-    const { data } = yield call(api.get, "api/all");
+    const { data } = yield call(api.get, "/all");
 
     yield put(GlobalStatisticsCreators.getGlobalSummaryStatisticsSuccess(data));
   } catch (err) {
@@ -18,7 +18,7 @@ export function* getGlobalSummaryStatistics() {
 export function* getGlobalCountryStatistics() {
   try {
     let modifiedData = [];
-    const { data } = yield call(api.get, "api/countries");
+    const { data } = yield call(api.get, "/countries");
 
     data.sort(compare);
 
@@ -51,7 +51,7 @@ export function* getGlobalTimelineStatistics() {
   try {
     let modifiedData = [];
 
-    const { data } = yield call(api.get, "api/timeline/global");
+    const { data } = yield call(api.get, "/timeline/global");
 
     Object.keys(data).forEach((key) => {
       modifiedData.push({
