@@ -1,20 +1,10 @@
-import React, { useEffect, useState } from "react";
-import {
-  Grid,
-  Paper,
-  Box,
-  Chip,
-  Switch,
-  FormGroup,
-  FormControlLabel,
-} from "@material-ui/core";
+import React from "react";
+import { Grid, Paper, Switch, FormControlLabel } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-
-import LinearLoading from "../LinearLoading/LinearLoading";
 
 am4core.useTheme(am4themes_animated);
 

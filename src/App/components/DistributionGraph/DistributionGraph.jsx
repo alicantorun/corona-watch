@@ -1,15 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Grid,
-  Paper,
-  Box,
-  Chip,
-  Switch,
-  FormGroup,
-  FormControlLabel,
-} from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
-import { compare } from "../../utils/compare";
+import React from "react";
+import { Grid, Paper } from "@material-ui/core";
 
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
@@ -20,8 +10,6 @@ am4core.useTheme(am4themes_animated);
 
 function DistributionGraph({ countryData, type }) {
   const { data, loading, error } = countryData;
-
-  const theme = useTheme();
 
   function calculateSum(index, array = data) {
     var total = 0;
@@ -35,7 +23,6 @@ function DistributionGraph({ countryData, type }) {
     let chart = am4core.create("pieChart", am4charts.PieChart);
     let pieSeries = chart.series.push(new am4charts.PieSeries());
 
-    console.log(data);
     function drawMap() {
       if (type === "global") {
         chart.data = data.slice(0, 10);
@@ -65,8 +52,6 @@ function DistributionGraph({ countryData, type }) {
         pieSeries.dataFields.value = "number";
         pieSeries.dataFields.category = "type";
       }
-
-      console.log(chart.data);
 
       pieSeries.labels.template.disabled = true;
       pieSeries.ticks.template.disabled = true;

@@ -26,15 +26,13 @@ function CountryDashboard(props) {
 
   useEffect(() => {
     getCountrySummaryStatistics(country);
-    if (country == "USA") {
+    if (country === "USA") {
       getCountryTimelineStatistics("us");
     }
   }, []);
 
   return (
     <div>
-      {/* <Header /> */}
-      <h2>{country}</h2>
       <Container maxWidth="lg">
         <Grid
           container

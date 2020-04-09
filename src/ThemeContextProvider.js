@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment, Component, createContext } from "react";
+import React, { Component, createContext } from "react";
 
 import { MuiThemeProvider } from "@material-ui/core/styles";
 
@@ -15,26 +15,6 @@ class ThemeContextProvider extends Component<Props, State> {
   };
 
   async componentDidMount() {
-    // const isFirstTimeRunningApp = await getItemFromStorage(
-    //   CONSTANTS.KEYS.FIRST_TIME_RUNNING_APP,
-    //   false
-    // );
-
-    // if (typeof isFirstTimeRunningApp === "boolean") {
-    //   this.setState({
-    //     isDarkThemeActivated: true,
-    //   });
-
-    //   return;
-    // }
-
-    // const appThemeFromStorage = await getItemFromStorage(
-    //   CONSTANTS.KEYS.APP_THEME,
-    //   false
-    // );
-
-    // const isDarkThemeActivated = appThemeFromStorage === "true";
-
     this.setState({
       isDarkThemeActivated: true,
     });
@@ -46,9 +26,12 @@ class ThemeContextProvider extends Component<Props, State> {
     this.setState({
       isDarkThemeActivated: !isDarkThemeActivated,
     });
+  };
 
-    // await persistItemInStorage(CONSTANTS.KEYS.APP_THEME, !isDarkThemeActivated);
-    // await persistItemInStorage(CONSTANTS.KEYS.FIRST_TIME_RUNNING_APP, true);
+  getIsDarkThemeActivated = () => {
+    const { isDarkThemeActivated } = this.state;
+
+    return isDarkThemeActivated;
   };
 
   getAppTheme = () => {
@@ -56,13 +39,6 @@ class ThemeContextProvider extends Component<Props, State> {
 
     const themeSelected = isDarkThemeActivated ? darkTheme : lightTheme;
 
-    // return {
-    //   ...appStyles,
-    //   colors: {
-    //     ...appStyles.colors,
-    //     ...themeSelected,
-    //   },
-    // };
     return themeSelected;
   };
 

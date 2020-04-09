@@ -4,7 +4,6 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Creators as GlobalStatisticsCreators } from "../../store/ducks/globalStatistics";
 
-import Header from "../../components/Header/Header";
 import { Container, Grid } from "@material-ui/core";
 import CountryList from "../../components/CountryList/CountryList";
 import SummaryBlock from "../../components/SummaryBlock/SummaryBlock";
@@ -34,7 +33,6 @@ function AppDashboard(props) {
 
   return (
     <div>
-      <Header />
       <Container maxWidth="lg">
         <Grid
           container
