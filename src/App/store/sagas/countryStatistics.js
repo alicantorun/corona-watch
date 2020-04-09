@@ -7,7 +7,7 @@ import { useTheme } from "@material-ui/core/styles";
 
 export function* getCountrySummaryStatistics({ country }) {
   try {
-    const { data } = yield call(api.get, `/countries/${country}`);
+    const { data } = yield call(api.get, `api/countries/${country}`);
 
     yield put(
       CountryStatisticsCeators.getCountrySummaryStatisticsSuccess(data)
@@ -21,7 +21,7 @@ export function* getCountryTimelineStatistics({ country }) {
   try {
     let modifiedData = [];
 
-    const { data } = yield call(api.get, `/timeline/${country}`);
+    const { data } = yield call(api.get, `api/timeline/${country}`);
     const timeline = data.data.timeline;
 
     timeline.forEach((key) => {
