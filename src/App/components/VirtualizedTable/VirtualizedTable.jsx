@@ -1,144 +1,86 @@
 import React from "react";
 import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
-import TableCell from "@material-ui/core/TableCell";
-import { AutoSizer, Column, Table } from "react-virtualized";
+import { Box, Divider } from "@material-ui/core/";
+import {
+  List,
+  AutoSizer,
+  Column,
+  Table,
+  CellMeasurer,
+  CellMeasurerCache,
+} from "react-virtualized";
 import { Link } from "react-router-dom";
 import { history } from "../../_helpers/history";
 
-const styles = (theme) => ({
-  flexContainer: {
-    display: "flex",
-    alignItems: "center",
-    boxSizing: "border-box",
-  },
-  table: {
-    // temporary right-to-left patch, waiting for
-    // https://github.com/bvaughn/react-virtualized/issues/454
-    "& .ReactVirtualized__Table__headerRow": {
-      flip: false,
-      paddingRight: theme.direction === "rtl" ? "0px !important" : undefined,
-    },
-  },
-  tableRow: {
-    cursor: "pointer",
-  },
-  tableRowHover: {
-    "&:hover": {
-      backgroundColor: theme.palette.grey[200],
-    },
-  },
-  tableCell: {
-    flex: 1,
-  },
-  noClick: {
-    cursor: "initial",
-  },
-});
+function MuiVirtualizedTable({ data, rowCount }) {
+  const list = data.map((val, idx) => {
+    return {
+      id: idx,
+      country: val.country,
+      cases: val.cases,
+      todayCases: val.todayCases,
+      deaths: val.deaths,
+      todayDeaths: val.todayDeaths,
+      flag: val.id,
+    };
+  });
+  console.log(list);
 
-class MuiVirtualizedTable extends React.PureComponent {
-  static defaultProps = {
-    headerHeight: 48,
-    rowHeight: 48,
-  };
-
-  getRowClassName = ({ index }) => {
-    const { classes, onRowClick } = this.props;
-
-    return clsx(classes.tableRow, classes.flexContainer, {
-      [classes.tableRowHover]: index !== -1 && onRowClick != null,
-    });
-  };
-
-  cellRenderer = ({ cellData, columnIndex }) => {
-    const { columns, classes, rowHeight, onRowClick } = this.props;
+  const renderRow = ({ index, key, style, parent }) => {
     return (
-      <TableCell
-        component="div"
-        className={clsx(classes.tableCell, classes.flexContainer, {
-          [classes.noClick]: onRowClick == null,
-        })}
-        variant="body"
-        style={{ height: rowHeight }}
-        align={
-          (columnIndex != null && columns[columnIndex].numeric) || false
-            ? "right"
-            : "left"
-        }
-      >
-        {cellData}
-      </TableCell>
+      <>
+        <Box display="flex" padding={2}>
+          <Box display="flex" alignContent="center" alignItems="center">
+            <img
+              style={{ width: "40px", height: "40px" }}
+              src={
+                list[index].flag &&
+                `${process.env.PUBLIC_URL}/flags/${list[
+                  index
+                ].flag.toLowerCase()}.svg`
+              }
+              alt=""
+            />
+          </Box>
+          <Box width="100%">
+            <Box display="flex" justifyContent="space-between" paddingLeft={2}>
+              <Box fontWeight="bold">{list[index].country}</Box>
+              <Box>+ {list[index].todayCases} Cases</Box>
+            </Box>
+            <Box display="flex" justifyContent="space-between" paddingLeft={2}>
+              <Box>
+                {list[index].cases} Cases & {list[index].deaths} Deaths
+              </Box>
+              <Box>+ {list[index].todayDeaths} Deaths</Box>
+            </Box>
+          </Box>
+        </Box>
+        <Box paddingLeft={2} paddingRight={2}>
+          <Divider />
+        </Box>
+      </>
     );
   };
 
-  headerRenderer = ({ label, columnIndex }) => {
-    const { headerHeight, columns, classes } = this.props;
-
-    return (
-      <TableCell
-        component="div"
-        className={clsx(
-          classes.tableCell,
-          classes.flexContainer,
-          classes.noClick
-        )}
-        variant="head"
-        style={{ height: headerHeight }}
-        align={columns[columnIndex].numeric || false ? "right" : "left"}
-      >
-        <span>{label}</span>
-      </TableCell>
-    );
-  };
-
-  render() {
-    const {
-      classes,
-      columns,
-      rowHeight,
-      headerHeight,
-      ...tableProps
-    } = this.props;
-    return (
-      <AutoSizer>
-        {({ height, width }) => (
-          <Table
-            onRowClick={(i) => {
-              history.push(i.rowData.country);
-            }}
-            height={height}
+  return (
+    <AutoSizer>
+      {({ width, height }) => {
+        return (
+          <List
             width={width}
-            rowHeight={rowHeight}
-            gridStyle={{
-              direction: "inherit",
-            }}
-            headerHeight={headerHeight}
-            className={classes.table}
-            {...tableProps}
-            rowClassName={this.getRowClassName}
-          >
-            {columns.map(({ dataKey, ...other }, index) => {
-              return (
-                <Column
-                  key={dataKey}
-                  headerRenderer={(headerProps) =>
-                    this.headerRenderer({
-                      ...headerProps,
-                      columnIndex: index,
-                    })
-                  }
-                  className={classes.flexContainer}
-                  cellRenderer={this.cellRenderer}
-                  dataKey={dataKey}
-                  {...other}
-                />
-              );
-            })}
-          </Table>
-        )}
-      </AutoSizer>
-    );
-  }
+            height={height}
+            rowHeight={500}
+            rowRenderer={renderRow}
+            rowCount={rowCount}
+            // overscanRowCount={3}
+          />
+        );
+      }}
+    </AutoSizer>
+  );
 }
 
-export default withStyles(styles)(MuiVirtualizedTable);
+export default //  withStyles(styles)(
+MuiVirtualizedTable;
+// )

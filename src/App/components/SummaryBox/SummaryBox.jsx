@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Divider, Typography, Box } from "@material-ui/core";
 import clsx from "clsx";
-import LinearLoading from "../LinearLoading/LinearLoading";
+import CircularProgress from "../CircularProgress/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -28,7 +28,7 @@ export default function SummaryBox({
   return (
     <Paper>
       <Box padding={2}>
-        {loading && !error && <LinearLoading />}
+        {loading && !error && <CircularProgress />}
         {/* {!loading && error && (
           <Box
             

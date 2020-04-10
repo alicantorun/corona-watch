@@ -9,7 +9,7 @@ import * as am4maps from "@amcharts/amcharts4/maps";
 
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
-import LinearLoading from "../LinearLoading/LinearLoading";
+import CircularProgress from "../CircularProgress/CircularProgress";
 
 am4core.useTheme(am4themes_animated);
 
@@ -103,8 +103,8 @@ function WorldMapGraph({ countryData }) {
 
   return (
     <Grid item xs={12} md={6} lg={8}>
-      <Paper style={{ position: "relative" }}>
-        {loading && !error && <LinearLoading />}
+      <Paper style={{ height: "100%", position: "relative" }}>
+        {loading && !error && <CircularProgress />}
         <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
         <>
           <div

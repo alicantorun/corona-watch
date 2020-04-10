@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
 import InfectionRateBox from "../InfectionRateBox/InfectionRateBox";
-import LinearLoading from "../LinearLoading/LinearLoading";
+import CircularProgress from "../CircularProgress/CircularProgress";
 
 // const useStyles = makeStyles((theme) => ({}));
 
@@ -11,8 +11,8 @@ export default function InfectionRatesBlock({ summaryData }) {
 
   return (
     <Grid container item xs={12} md={6} lg={4}>
-      <Paper>
-        {loading && !error && <LinearLoading />}
+      <Paper style={{ width: "100%" }}>
+        {loading && !error && <CircularProgress />}
         {!loading && !error && (
           <Grid container spacing={3}>
             <Grid item xs={6}>

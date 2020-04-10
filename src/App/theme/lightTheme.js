@@ -18,6 +18,13 @@ let theme = createMuiTheme({
       contrastText: "#000",
     },
   },
+  overrides: {
+    MuiDivider: {
+      root: {
+        height: 2,
+      },
+    },
+  },
 });
 theme = responsiveFontSizes(theme);
 export default theme;

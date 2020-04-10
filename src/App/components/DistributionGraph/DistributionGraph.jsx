@@ -4,7 +4,7 @@ import { Grid, Paper } from "@material-ui/core";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import LinearLoading from "../LinearLoading/LinearLoading";
+import CircularProgress from "../CircularProgress/CircularProgress";
 
 am4core.useTheme(am4themes_animated);
 
@@ -65,8 +65,8 @@ function DistributionGraph({ countryData, type }) {
 
   return (
     <Grid item xs={12} md={6} lg={4}>
-      <Paper style={{ position: "relative" }}>
-        {loading && !error && <LinearLoading />}
+      <Paper style={{ height: "100%", position: "relative" }}>
+        {loading && !error && <CircularProgress />}
 
         <div id="pieChart" style={{ width: "100%", height: "400px" }}></div>
       </Paper>

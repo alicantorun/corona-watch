@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Paper, Switch, FormControlLabel } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
+import CircularProgress from "../CircularProgress/CircularProgress";
 
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
@@ -74,7 +75,8 @@ function InfectionsGraph({ timelineData }) {
 
   return (
     <Grid item xs={12} md={6} lg={8}>
-      <Paper style={{ position: "relative" }}>
+      <Paper style={{ height: "100%", position: "relative" }}>
+        {loading && !error && <CircularProgress />}
         <div id="lineChart" style={{ width: "100%", height: "500px" }}></div>
         <div
           style={{
