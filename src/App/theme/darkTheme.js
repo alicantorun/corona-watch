@@ -20,6 +20,12 @@ let theme = createMuiTheme({
       contrastText: "#000",
     },
   },
+  typography: {
+    fontWeightLight: 700,
+    fontWeightRegular: 700,
+    fontWeightMedium: 700,
+    fontWeightBold: 700,
+  },
   overrides: {
     MuiDivider: {
       root: {

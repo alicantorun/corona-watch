@@ -23,13 +23,13 @@ export default function Header() {
       <AppBar className={classes.appbar} color="inherit" position="static">
         <Toolbar>
           <Typography
-            variant="h6"
+            variant="h4"
             color="inherit"
             className={classes.typography}
           >
             CORONA WATCH
           </Typography>
-          <Switch
+          {/* <Switch
             checked={theme}
             onChange={() => {
               onToggleDarkTheme();
@@ -37,7 +37,7 @@ export default function Header() {
             }}
             color="primary"
             inputProps={{ "aria-label": "checkbox with default color" }}
-          />
+          /> */}
         </Toolbar>
       </AppBar>
     </div>

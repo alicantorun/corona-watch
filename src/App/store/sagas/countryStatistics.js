@@ -9,6 +9,10 @@ export function* getCountrySummaryStatistics({ country }) {
   try {
     const { data } = yield call(api.get, `/countries/${country}`);
 
+    for (const property in countryCodes) {
+      if (data.country === property) data.id = countryCodes[property];
+    }
+
     yield put(
       CountryStatisticsCeators.getCountrySummaryStatisticsSuccess(data)
     );

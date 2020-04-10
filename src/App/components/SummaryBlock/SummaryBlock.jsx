@@ -4,9 +4,26 @@ import Grid from "@material-ui/core/Grid";
 import SummaryBox from "../SummaryBox/SummaryBox";
 
 // const useStyles = makeStyles((theme) => ({}));
+import { calculateSum } from "../../utils/calculateSum";
 
-export default function SummaryBlock({ summaryData }) {
+export default function SummaryBlock({ summaryData, countryData }) {
   const { data, loading, error } = summaryData;
+
+  const todayDeaths =
+    countryData &&
+    countryData.data &&
+    calculateSum("todayDeaths", countryData.data);
+  const todayCases =
+    countryData &&
+    countryData.data &&
+    calculateSum("todayCases", countryData.data);
+  const totalActive =
+    countryData && countryData.data && calculateSum("active", countryData.data);
+  const remainingRecovered =
+    countryData &&
+    countryData.data &&
+    data &&
+    data.cases - data.deaths - data.recovered;
   return (
     <>
       <Grid item xs={12} md={6} lg={3}>
@@ -17,6 +34,8 @@ export default function SummaryBlock({ summaryData }) {
           loading={loading}
           error={error}
           data={data}
+          extraInfo={todayCases}
+          extraInfoText={countryData && countryData.data && "today"}
         />
       </Grid>
       <Grid item xs={12} md={6} lg={3}>
@@ -27,6 +46,8 @@ export default function SummaryBlock({ summaryData }) {
           error={error}
           data={data}
           type="error"
+          extraInfo={todayDeaths}
+          extraInfoText={countryData && countryData.data && "today"}
         />
       </Grid>
       <Grid item xs={12} md={6} lg={3}>
@@ -37,6 +58,8 @@ export default function SummaryBlock({ summaryData }) {
           loading={loading}
           error={error}
           data={data}
+          extraInfo={remainingRecovered}
+          extraInfoText={countryData && countryData.data && "remaining"}
         />
       </Grid>
       <Grid item xs={12} md={6} lg={3}>
@@ -47,6 +70,8 @@ export default function SummaryBlock({ summaryData }) {
           loading={loading}
           error={error}
           data={data}
+          extraInfo={totalActive}
+          extraInfoText={countryData && countryData.data && "active cases"}
         />
       </Grid>
     </>

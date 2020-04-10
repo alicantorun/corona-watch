@@ -22,6 +22,8 @@ export default function SummaryBox({
   type,
   loading,
   error,
+  extraInfo,
+  extraInfoText,
 }) {
   const classes = useStyles();
 
@@ -44,8 +46,12 @@ export default function SummaryBox({
             <Box fontSize="h6.fontSize" m={1}>
               {title}
             </Box>
+            <Box fontSize="h4.fontSize" textAlign="right" m={1}>
+              {count.toLocaleString()}
+            </Box>
             <Box fontSize="h6.fontSize" textAlign="right" m={1}>
-              {count}
+              {extraInfo && extraInfo.toLocaleString()}{" "}
+              {extraInfoText && extraInfoText}
             </Box>
             <Divider
               className={clsx(

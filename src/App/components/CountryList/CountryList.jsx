@@ -48,7 +48,7 @@ export default function CountryList({ countryData }) {
               <Box fontWeight="bold">{val.country}</Box>
               <Box>
                 <Box component="span" color={theme.palette.info.main}>
-                  + {val.todayCases} Cases
+                  + {val.todayCases.toLocaleString()} Cases
                 </Box>
               </Box>
             </Box>
@@ -60,16 +60,16 @@ export default function CountryList({ countryData }) {
             >
               <Box>
                 <Box component="span" color={theme.palette.info.main}>
-                  {val.cases} Cases
+                  {val.cases.toLocaleString()} Cases
                 </Box>{" "}
                 &{" "}
                 <Box component="span" color={theme.palette.error.main}>
-                  {val.deaths} Deaths
+                  {val.deaths.toLocaleString()} Deaths
                 </Box>
               </Box>
               <Box>
                 <Box component="span" color={theme.palette.error.main}>
-                  + {val.todayDeaths} Deaths
+                  + {val.todayDeaths.toLocaleString()} Deaths
                 </Box>
               </Box>
             </Box>

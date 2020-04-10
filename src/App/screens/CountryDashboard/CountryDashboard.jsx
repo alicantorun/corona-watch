@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Creators as CountryStatisticsCreators } from "../../store/ducks/countryStatistics";
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, Typography, Box } from "@material-ui/core";
 
 import RateGraph from "../../components/RateGraph/RateGraph";
 import SummaryBlock from "../../components/SummaryBlock/SummaryBlock";
@@ -28,12 +28,41 @@ function CountryDashboard(props) {
     getCountrySummaryStatistics(country);
     if (country === "USA") {
       getCountryTimelineStatistics("us");
+    } else {
+      getCountryTimelineStatistics(country);
     }
   }, []);
 
   return (
     <div>
       <Container maxWidth="lg">
+        <Typography variant="h4" color="inherit" align="center">
+          <Box
+            display="flex"
+            alignContent="center"
+            alignItems="center"
+            justifyContent="center"
+            marginBottom={2}
+          >
+            <img
+              style={{ width: "60px", height: "60px" }}
+              src={
+                summaryData &&
+                summaryData.data &&
+                summaryData.data.id &&
+                `${process.env.PUBLIC_URL}/flags/${
+                  summaryData &&
+                  summaryData.data &&
+                  summaryData.data.id.toLowerCase()
+                }.svg`
+              }
+              alt=""
+            />
+            <Box paddingLeft={2} alignSelf="center">
+              {country.toUpperCase()} STATISTICS
+            </Box>
+          </Box>
+        </Typography>
         <Grid
           container
           //   className={classes.root}

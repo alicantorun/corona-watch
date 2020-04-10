@@ -34,28 +34,15 @@ function AppDashboard(props) {
   return (
     <div>
       <Container maxWidth="lg">
-        <Grid
-          container
-          //   className={classes.root}
-          spacing={2}
-        >
-          <SummaryBlock summaryData={summaryData} />
+        <Grid container spacing={2}>
+          <SummaryBlock summaryData={summaryData} countryData={countryData} />
           <CountryList countryData={countryData} />
           <WorldMapGraph countryData={countryData} />
           <RateGraph summaryData={summaryData} />
           <InfectionsGraph timelineData={timelineData} />
           <DistributionGraph type="global" countryData={countryData} />
           <InfectionRatesBlock summaryData={summaryData} />
-          <Grid
-            container
-            item
-            xs={12}
-            lg={3}
-            // spacing={2}
-
-            //   className={classes.root}
-            // spacing={2}
-          >
+          <Grid container item xs={12} lg={3}>
             <Counter />
             <Creator />
           </Grid>
