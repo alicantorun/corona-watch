@@ -24,7 +24,7 @@ export default function InfectionRateBox({
   const classes = useStyles();
 
   return (
-    <Paper>
+    <Paper style={{ backgroundColor: "#17223b" }}>
       <Box padding={2}>
         <Typography>
           <Box textAlign="center" fontSize="h4.fontSize" m={1} color={color}>

@@ -50,7 +50,7 @@ function AppDashboard(props) {
             container
             item
             xs={12}
-            lg={4}
+            lg={3}
             // spacing={2}
 
             //   className={classes.root}

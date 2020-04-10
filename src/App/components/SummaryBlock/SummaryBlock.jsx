@@ -7,7 +7,6 @@ import SummaryBox from "../SummaryBox/SummaryBox";
 
 export default function SummaryBlock({ summaryData }) {
   const { data, loading, error } = summaryData;
-
   return (
     <>
       <Grid item xs={12} md={6} lg={3}>

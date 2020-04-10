@@ -10,11 +10,12 @@ const useStyles = makeStyles((theme) => ({
   paperRoot: { width: "100%", marginBottom: theme.spacing(2) },
 }));
 
-const TableCell = withStyles({
+const TableCell = withStyles((theme) => ({
   root: {
     borderBottom: "none",
+    padding: theme.spacing(1),
   },
-})(MuiTableCell);
+}))(MuiTableCell);
 
 function Counter() {
   const classes = useStyles();

@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Paper } from "@material-ui/core";
+import { Grid, Paper, Box } from "@material-ui/core";
 
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
@@ -67,8 +67,14 @@ function DistributionGraph({ countryData, type }) {
     <Grid item xs={12} md={6} lg={4}>
       <Paper style={{ height: "100%", position: "relative" }}>
         {loading && !error && <CircularProgress />}
-
-        <div id="pieChart" style={{ width: "100%", height: "400px" }}></div>
+        {!loading && !error && (
+          <Box fontSize="h6.fontSize" padding={2}>
+            Infections Distribution
+          </Box>
+        )}
+        <Box p={2}>
+          <div id="pieChart" style={{ width: "100%", height: "300px" }}></div>
+        </Box>
       </Paper>
     </Grid>
   );

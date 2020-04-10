@@ -105,37 +105,51 @@ function WorldMapGraph({ countryData }) {
     <Grid item xs={12} md={6} lg={8}>
       <Paper style={{ height: "100%", position: "relative" }}>
         {loading && !error && <CircularProgress />}
-        <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
-        <>
-          <div
-            style={{
-              position: "absolute",
-              top: theme.spacing(2),
-              right: theme.spacing(2),
-            }}
-          >
-            <Chip
-              style={{ backgroundColor: theme.palette.info.main }}
-              label="Cases"
-              onClick={() => setMapState("cases")}
-            />
-            <Chip
-              style={{ backgroundColor: theme.palette.error.main }}
-              label="Deaths"
-              onClick={() => setMapState("deaths")}
-            />
-            <Chip
-              style={{ backgroundColor: theme.palette.warning.main }}
-              label="Critical"
-              onClick={() => setMapState("critical")}
-            />
-            <Chip
-              style={{ backgroundColor: theme.palette.success.main }}
-              label="Recoveries"
-              onClick={() => setMapState("recovered")}
-            />
-          </div>
-        </>
+        <Box p={2}>
+          <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
+        </Box>
+        {!loading && !error && (
+          <>
+            <div
+              style={{
+                position: "absolute",
+                top: theme.spacing(2),
+                right: theme.spacing(2),
+                width: "96%",
+              }}
+            >
+              <Box display="flex" justifyContent="space-between">
+                <Box fontSize="h6.fontSize">Worldwide Infections</Box>
+                <Box>
+                  <Chip
+                    size="small"
+                    style={{ backgroundColor: theme.palette.info.main }}
+                    label="Cases"
+                    onClick={() => setMapState("cases")}
+                  />
+                  <Chip
+                    size="small"
+                    style={{ backgroundColor: theme.palette.error.main }}
+                    label="Deaths"
+                    onClick={() => setMapState("deaths")}
+                  />
+                  <Chip
+                    size="small"
+                    style={{ backgroundColor: theme.palette.warning.main }}
+                    label="Critical"
+                    onClick={() => setMapState("critical")}
+                  />
+                  <Chip
+                    size="small"
+                    style={{ backgroundColor: theme.palette.success.main }}
+                    label="Recoveries"
+                    onClick={() => setMapState("recovered")}
+                  />
+                </Box>
+              </Box>
+            </div>
+          </>
+        )}
       </Paper>
     </Grid>
   );

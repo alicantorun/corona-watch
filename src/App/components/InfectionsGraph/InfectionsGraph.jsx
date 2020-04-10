@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Paper, Switch, FormControlLabel } from "@material-ui/core";
+import { Grid, Paper, Switch, FormControlLabel, Box } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import CircularProgress from "../CircularProgress/CircularProgress";
 
@@ -77,26 +77,38 @@ function InfectionsGraph({ timelineData }) {
     <Grid item xs={12} md={6} lg={8}>
       <Paper style={{ height: "100%", position: "relative" }}>
         {loading && !error && <CircularProgress />}
-        <div id="lineChart" style={{ width: "100%", height: "500px" }}></div>
-        <div
-          style={{
-            position: "absolute",
-            top: theme.spacing(2),
-            right: theme.spacing(2),
-          }}
-        >
-          <FormControlLabel
-            control={
-              <Switch
-                checked={logMap}
-                onChange={handleChange}
-                color="primary"
-                inputProps={{ "aria-label": "checkbox with default color" }}
-              />
-            }
-            label="Logarithmic"
-          />
-        </div>
+        <Box p={2}>
+          <div id="lineChart" style={{ width: "100%", height: "500px" }}></div>
+        </Box>
+        {!loading && !error && (
+          <div
+            style={{
+              position: "absolute",
+              top: theme.spacing(2),
+              right: theme.spacing(2),
+              width: "96%",
+            }}
+          >
+            <Box display="flex" justifyContent="space-between">
+              <Box fontSize="h6.fontSize">Infections History</Box>
+              <Box>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={logMap}
+                      onChange={handleChange}
+                      color="primary"
+                      inputProps={{
+                        "aria-label": "checkbox with default color",
+                      }}
+                    />
+                  }
+                  label="Logarithmic"
+                />
+              </Box>
+            </Box>
+          </div>
+        )}
       </Paper>
     </Grid>
   );

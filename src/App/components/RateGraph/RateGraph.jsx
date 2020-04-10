@@ -131,8 +131,15 @@ function RateGraph({ summaryData }) {
   return (
     <Grid item xs={12} md={6} lg={4}>
       <Paper style={{ height: "100%", position: "relative" }}>
+        {!loading && !error && (
+          <Box fontSize="h6.fontSize" padding={2}>
+            Rate Distribution
+          </Box>
+        )}
         {loading && !error && <CircularProgress />}
-        <div id="radarChart" style={{ width: "100%", height: "500px" }}></div>
+        <Box p={2}>
+          <div id="radarChart" style={{ width: "100%", height: "450px" }}></div>
+        </Box>
       </Paper>
     </Grid>
   );
