@@ -1,14 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Grid,
-  Paper,
-  Box,
-  Chip,
-  Switch,
-  FormGroup,
-  FormControlLabel,
-} from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
+import React, { useEffect } from "react";
+import { Grid, Paper, Box } from "@material-ui/core";
 
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
@@ -20,8 +11,8 @@ am4core.useTheme(am4themes_animated);
 function RateGraph({ summaryData }) {
   const { data, loading, error } = summaryData;
 
-  am4core.ready(function () {
-    let chart = am4core.create("radarChart", am4charts.RadarChart);
+  useEffect(() => {
+    let chart = am4core.create("rateGraph", am4charts.RadarChart);
 
     function drawMap(chartType) {
       chart.data = [
@@ -46,6 +37,7 @@ function RateGraph({ summaryData }) {
           full: 100,
         },
       ];
+
       // Make chart not full circle
       chart.startAngle = -90;
       chart.endAngle = 180;
@@ -64,13 +56,13 @@ function RateGraph({ summaryData }) {
         fill,
         target
       ) {
-        if (target.dataItem.index == 0) {
+        if (target.dataItem.index === 0) {
           return am4core.color("#f9c851");
         }
-        if (target.dataItem.index == 1) {
+        if (target.dataItem.index === 1) {
           return am4core.color("#ff5b5b");
         }
-        if (target.dataItem.index == 2) {
+        if (target.dataItem.index === 2) {
           return am4core.color("#10c469");
         }
         return am4core.color("#21AFDD");
@@ -108,13 +100,13 @@ function RateGraph({ summaryData }) {
 
       series2.columns.template.adapter.add("fill", function (fill, target) {
         //return chart.colors.getIndex(target.dataItem.index);
-        if (target.dataItem.index == 0) {
+        if (target.dataItem.index === 0) {
           return am4core.color("#f9c851");
         }
-        if (target.dataItem.index == 1) {
+        if (target.dataItem.index === 1) {
           return am4core.color("#ff5b5b");
         }
-        if (target.dataItem.index == 2) {
+        if (target.dataItem.index === 2) {
           return am4core.color("#10c469");
         }
         return am4core.color("#21AFDD");
@@ -126,7 +118,10 @@ function RateGraph({ summaryData }) {
     }
 
     !loading && !error && drawMap();
-  });
+    return () => chart.dispose();
+  }, [data, error, loading]);
+
+  // });
 
   return (
     <Grid item xs={12} md={6} lg={4}>
@@ -138,7 +133,7 @@ function RateGraph({ summaryData }) {
         )}
         {loading && !error && <CircularProgress />}
         <Box p={2}>
-          <div id="radarChart" style={{ width: "100%", height: "450px" }}></div>
+          <div id="rateGraph" style={{ width: "100%", height: "450px" }}></div>
         </Box>
       </Paper>
     </Grid>

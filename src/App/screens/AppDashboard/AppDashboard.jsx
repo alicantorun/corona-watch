@@ -15,7 +15,11 @@ import InfectionRatesBlock from "../../components/InfectionRatesBlock/InfectionR
 import Counter from "../../components/Counter/Counter";
 import Creator from "../../components/Creator/Creator";
 
+import { useTranslation } from "react-i18next";
+
 function AppDashboard(props) {
+  const { t } = useTranslation();
+
   const {
     getGlobalSummaryStatistics,
     getGlobalCountryStatistics,

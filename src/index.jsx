@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App/App";
@@ -8,15 +8,19 @@ import { ThemeContextProvider } from "./ThemeContextProvider";
 
 import { CssBaseline } from "@material-ui/core";
 import { BrowserRouter } from "react-router-dom";
+import "./i18n";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ThemeContextProvider>
-      <BrowserRouter>
-        <CssBaseline />
-        <App />
-      </BrowserRouter>
-    </ThemeContextProvider>
-  </Provider>,
+  <Suspense fallback={null}>
+    <Provider store={store}>
+      <ThemeContextProvider>
+        <BrowserRouter>
+          <CssBaseline />
+          <App />
+        </BrowserRouter>
+      </ThemeContextProvider>
+    </Provider>
+  </Suspense>,
+
   document.getElementById("root")
 );

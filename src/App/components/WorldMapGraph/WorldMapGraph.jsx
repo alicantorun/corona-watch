@@ -18,8 +18,8 @@ function WorldMapGraph({ countryData }) {
   const theme = useTheme();
   const { data, loading, error } = countryData;
 
-  am4core.ready(function () {
-    let chartMap = am4core.create("chartdiv", am4maps.MapChart);
+  useEffect(() => {
+    let chartMap = am4core.create("worldMapGraph", am4maps.MapChart);
     chartMap.geodata = am4geodata_worldLow;
     chartMap.projection = new am4maps.projections.Miller();
 
@@ -99,14 +99,18 @@ function WorldMapGraph({ countryData }) {
     }
 
     !loading && !error && drawMap(mapState);
-  });
+    return () => chartMap.dispose();
+  }, [data, error, loading]);
 
   return (
     <Grid item xs={12} md={6} lg={8}>
       <Paper style={{ height: "100%", position: "relative" }}>
         {loading && !error && <CircularProgress />}
         <Box p={2}>
-          <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
+          <div
+            id="worldMapGraph"
+            style={{ width: "100%", height: "500px" }}
+          ></div>
         </Box>
         {!loading && !error && (
           <>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, Paper, Switch, FormControlLabel, Box } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import CircularProgress from "../CircularProgress/CircularProgress";
@@ -18,7 +18,7 @@ function InfectionsGraph({ timelineData }) {
     setLogMap(event.target.checked);
   };
 
-  am4core.ready(function () {
+  useEffect(() => {
     let chart = am4core.create("lineChart", am4charts.XYChart);
 
     function createSeriesLine(chart, color, type) {
@@ -71,7 +71,8 @@ function InfectionsGraph({ timelineData }) {
     }
 
     !loading && !error && drawMap(logMap);
-  });
+    return () => chart.dispose();
+  }, [data, error, loading]);
 
   return (
     <Grid item xs={12} md={6} lg={8}>

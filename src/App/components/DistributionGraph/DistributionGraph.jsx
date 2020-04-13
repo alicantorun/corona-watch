@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, Paper, Box } from "@material-ui/core";
 
 import * as am4core from "@amcharts/amcharts4/core";
@@ -19,8 +19,8 @@ function DistributionGraph({ countryData, type }) {
     return total;
   }
 
-  am4core.ready(function () {
-    let chart = am4core.create("pieChart", am4charts.PieChart);
+  useEffect(() => {
+    let chart = am4core.create("distributionGraph", am4charts.PieChart);
     let pieSeries = chart.series.push(new am4charts.PieSeries());
 
     function drawMap() {
@@ -61,7 +61,8 @@ function DistributionGraph({ countryData, type }) {
     }
 
     !loading && !error && drawMap();
-  });
+    return () => chart.dispose();
+  }, [data, error, loading]);
 
   return (
     <Grid item xs={12} md={6} lg={4}>
@@ -73,7 +74,10 @@ function DistributionGraph({ countryData, type }) {
           </Box>
         )}
         <Box p={2}>
-          <div id="pieChart" style={{ width: "100%", height: "300px" }}></div>
+          <div
+            id="distributionGraph"
+            style={{ width: "100%", height: "300px" }}
+          ></div>
         </Box>
       </Paper>
     </Grid>
