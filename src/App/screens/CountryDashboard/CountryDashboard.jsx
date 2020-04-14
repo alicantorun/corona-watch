@@ -12,6 +12,7 @@ import InfectionRatesBlock from "../../components/InfectionRatesBlock/InfectionR
 import DistributionGraph from "../../components/DistributionGraph/DistributionGraph";
 import Counter from "../../components/Counter/Counter";
 import Creator from "../../components/Creator/Creator";
+import ChatRoom from "../../components/ChatRoom/ChatRoom";
 
 function CountryDashboard(props) {
   let { country } = useParams();
@@ -68,6 +69,8 @@ function CountryDashboard(props) {
           //   className={classes.root}
           spacing={2}
         >
+          <ChatRoom />
+
           <SummaryBlock summaryData={summaryData} />
           <RateGraph summaryData={summaryData} />
           <InfectionsGraph timelineData={timelineData} />

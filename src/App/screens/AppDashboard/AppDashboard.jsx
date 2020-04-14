@@ -28,6 +28,7 @@ function AppDashboard(props) {
   } = props;
 
   const { summaryData, timelineData, countryData } = globalStatistics;
+  console.log(globalStatistics);
 
   useEffect(() => {
     getGlobalSummaryStatistics();

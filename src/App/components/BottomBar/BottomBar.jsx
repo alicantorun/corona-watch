@@ -64,7 +64,7 @@ export default function BottomBar(props) {
           <InputBase
             onChange={props.handleName}
             value={props.name}
-            placeholder="Name"
+            placeholder={props.nameTitle}
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput,
@@ -79,7 +79,7 @@ export default function BottomBar(props) {
             <InputBase
               onChange={props.handleContent}
               value={props.content}
-              placeholder="Your message..."
+              placeholder={props.placeholder}
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,

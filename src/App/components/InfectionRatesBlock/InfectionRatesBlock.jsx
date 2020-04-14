@@ -4,11 +4,13 @@ import { Grid, Paper, Box } from "@material-ui/core";
 import InfectionRateBox from "../InfectionRateBox/InfectionRateBox";
 import CircularProgress from "../CircularProgress/CircularProgress";
 // import theme from "@amcharts/amcharts4/themes/animated";
+import { useTranslation } from "react-i18next";
 
 // const useStyles = makeStyles((theme) => ({}));
 
 export default function InfectionRatesBlock({ summaryData }) {
   const { data, loading, error } = summaryData;
+  const { t } = useTranslation();
 
   return (
     <Grid container item xs={12} md={6} lg={5}>
@@ -17,12 +19,12 @@ export default function InfectionRatesBlock({ summaryData }) {
         {!loading && !error && (
           <>
             <Box fontSize="h6.fontSize" paddingBottom={2}>
-              Infection Rates
+              {t("components.InfectionRatesBlock.title")}
             </Box>
             <Grid container spacing={3}>
               <Grid item xs={6}>
                 <InfectionRateBox
-                  title="Nations Affected"
+                  title={t("components.InfectionRatesBlock.nationsAffected")}
                   count={999}
                   type="info"
                   color="info.main"
@@ -30,7 +32,7 @@ export default function InfectionRatesBlock({ summaryData }) {
               </Grid>
               <Grid item xs={6}>
                 <InfectionRateBox
-                  title="Death Rate"
+                  title={t("components.InfectionRatesBlock.deathRate")}
                   count={
                     data &&
                     ((data.deaths / (data.cases - data.active)) * 100).toFixed(
@@ -43,7 +45,7 @@ export default function InfectionRatesBlock({ summaryData }) {
               </Grid>
               <Grid item xs={6}>
                 <InfectionRateBox
-                  title="Recovery Rate"
+                  title={t("components.InfectionRatesBlock.recoveryRate")}
                   count={
                     data &&
                     (
@@ -57,7 +59,7 @@ export default function InfectionRatesBlock({ summaryData }) {
               </Grid>
               <Grid item xs={6}>
                 <InfectionRateBox
-                  title="Critical Rate"
+                  title={t("components.InfectionRatesBlock.criticalRate")}
                   count={
                     data &&
                     ((data.critical / data.active) * 100).toFixed(2) + "%"

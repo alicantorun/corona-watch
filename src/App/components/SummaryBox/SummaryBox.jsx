@@ -24,6 +24,7 @@ export default function SummaryBox({
   error,
   extraInfo,
   extraInfoText,
+  extraSign,
 }) {
   const classes = useStyles();
 
@@ -50,6 +51,7 @@ export default function SummaryBox({
               {count.toLocaleString()}
             </Box>
             <Box fontSize="h6.fontSize" textAlign="right" m={1}>
+              {extraSign && extraSign}
               {extraInfo && extraInfo.toLocaleString()}{" "}
               {extraInfoText && extraInfoText}
             </Box>

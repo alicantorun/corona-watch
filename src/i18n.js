@@ -11,7 +11,7 @@ i18n
     lng: "en",
     fallbackLng: "en",
     defaultNS: "common",
-    whitelist: ["en", "de"],
+    whitelist: ["en", "tr"],
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },

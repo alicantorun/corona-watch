@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Typography, Switch } from "@material-ui/core";
 import ThemeContextProvider from "../../../ThemeContextProvider";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +19,7 @@ export default function Header() {
   const classes = useStyles();
   const { onToggleDarkTheme } = useContext(ThemeContextProvider);
   const [theme, setTheme] = useState(true);
+  const { t } = useTranslation();
 
   return (
     <div className={classes.root}>
@@ -27,8 +30,9 @@ export default function Header() {
             color="inherit"
             className={classes.typography}
           >
-            CORONA WATCH
+            {t("components.Header.title")}
           </Typography>
+          <LanguageSwitcher />
           {/* <Switch
             checked={theme}
             onChange={() => {

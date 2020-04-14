@@ -5,11 +5,13 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import CircularProgress from "../CircularProgress/CircularProgress";
+import { useTranslation } from "react-i18next";
 
 am4core.useTheme(am4themes_animated);
 
 function DistributionGraph({ countryData, type }) {
   const { data, loading, error } = countryData;
+  const { t } = useTranslation();
 
   function calculateSum(index, array = data) {
     var total = 0;
@@ -28,7 +30,7 @@ function DistributionGraph({ countryData, type }) {
         chart.data = data.slice(0, 10);
         let otherCases = data.slice(10, data.length);
         chart.data.push({
-          country: "Other",
+          country: t("components.DistributionGraph.others"),
           cases: calculateSum("cases", otherCases),
         });
         pieSeries.dataFields.value = "cases";
@@ -70,7 +72,7 @@ function DistributionGraph({ countryData, type }) {
         {loading && !error && <CircularProgress />}
         {!loading && !error && (
           <Box fontSize="h6.fontSize" padding={2}>
-            Infections Distribution
+            {t("components.DistributionGraph.title")}
           </Box>
         )}
         <Box p={2}>

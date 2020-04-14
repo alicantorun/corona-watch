@@ -5,7 +5,9 @@ import CountrySearch from "../CountrySearch/CountrySearch";
 import CountrySort from "../CountrySort/CountrySort";
 import CircularProgress from "../CircularProgress/CircularProgress";
 import { history } from "../../_helpers/history";
-
+import { useTranslation } from "react-i18next";
+import { FixedSizeList as List } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 const useStyles = makeStyles((theme) => ({
   countryBox: {
     "&:hover": {
@@ -15,71 +17,75 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-let list = [];
-
 export default function CountryList({ countryData }) {
   const { data, loading, error } = countryData;
   const classes = useStyles();
   const theme = useTheme();
-  list =
-    data &&
-    data.map((val, idx) => (
-      <>
-        <Box
-          display="flex"
-          padding={2}
-          className={classes.countryBox}
-          onClick={() => {
-            history.push(val.country);
-          }}
-        >
-          <Box display="flex" alignContent="center" alignItems="center">
-            <img
-              style={{ width: "40px", height: "40px" }}
-              src={
-                val.id &&
-                `${process.env.PUBLIC_URL}/flags/${val.id.toLowerCase()}.svg`
-              }
-              alt=""
-            />
-          </Box>
-          <Box width="100%">
-            <Box display="flex" justifyContent="space-between" paddingLeft={2}>
-              <Box fontWeight="bold">{val.country}</Box>
-              <Box>
-                <Box component="span" color={theme.palette.info.main}>
-                  + {val.todayCases.toLocaleString()} Cases
-                </Box>
+  const { t } = useTranslation();
+
+  const Row = ({ index, style }) => (
+    <div style={style}>
+      <Box
+        display="flex"
+        padding={2}
+        className={classes.countryBox}
+        onClick={() => {
+          history.push(data[index].country);
+        }}
+      >
+        <Box display="flex" alignContent="center" alignItems="center">
+          <img
+            style={{ width: "40px", height: "40px" }}
+            src={
+              data[index].id &&
+              `${process.env.PUBLIC_URL}/flags/${data[
+                index
+              ].id.toLowerCase()}.svg`
+            }
+            alt=""
+          />
+        </Box>
+        <Box width="100%">
+          <Box display="flex" justifyContent="space-between" paddingLeft={2}>
+            <Box fontWeight="bold">{data[index].country}</Box>
+            <Box>
+              <Box component="span" color={theme.palette.info.main}>
+                + {data[index].todayCases.toLocaleString()}{" "}
+                {t("components.CountryList.cases")}
               </Box>
             </Box>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              paddingLeft={2}
-              paddingBottom={1}
-            >
-              <Box>
-                <Box component="span" color={theme.palette.info.main}>
-                  {val.cases.toLocaleString()} Cases
-                </Box>{" "}
-                &{" "}
-                <Box component="span" color={theme.palette.error.main}>
-                  {val.deaths.toLocaleString()} Deaths
-                </Box>
+          </Box>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            paddingLeft={2}
+            paddingBottom={1}
+          >
+            <Box>
+              <Box component="span" color={theme.palette.info.main}>
+                {data[index].cases.toLocaleString()}{" "}
+                {t("components.CountryList.cases")}
+              </Box>{" "}
+              &{" "}
+              <Box component="span" color={theme.palette.error.main}>
+                {data[index].deaths.toLocaleString()}{" "}
+                {t("components.CountryList.deaths")}
               </Box>
-              <Box>
-                <Box component="span" color={theme.palette.error.main}>
-                  + {val.todayDeaths.toLocaleString()} Deaths
-                </Box>
+            </Box>
+            <Box>
+              <Box component="span" color={theme.palette.error.main}>
+                + {data[index].todayDeaths.toLocaleString()}{" "}
+                {t("components.CountryList.deaths")}
               </Box>
             </Box>
           </Box>
         </Box>
-        <Box paddingLeft={2} paddingRight={2}>
-          <Divider />
-        </Box>
-      </>
-    ));
+      </Box>
+      <Box paddingLeft={2} paddingRight={2}>
+        <Divider />
+      </Box>
+    </div>
+  );
 
   return (
     <>
@@ -87,16 +93,27 @@ export default function CountryList({ countryData }) {
         <Paper style={{ height: "100%", position: "relative" }}>
           {loading && !error && <CircularProgress />}
           <Box fontSize="h6.fontSize" padding={2}>
-            Affected countries
+            {t("components.CountryList.title")}
           </Box>
           {!loading && !error && (
             <Box
               style={{
-                overflowY: "scroll",
                 height: 500,
               }}
             >
-              {list}
+              <AutoSizer>
+                {({ height, width }) => (
+                  <List
+                    className="List"
+                    height={height}
+                    itemCount={data && data.length}
+                    itemSize={80}
+                    width={width}
+                  >
+                    {Row}
+                  </List>
+                )}
+              </AutoSizer>
             </Box>
           )}
         </Paper>

@@ -11,12 +11,15 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import CircularProgress from "../CircularProgress/CircularProgress";
 
+import { useTranslation } from "react-i18next";
+
 am4core.useTheme(am4themes_animated);
 
 function WorldMapGraph({ countryData }) {
   const [mapState, setMapState] = useState("cases");
   const theme = useTheme();
   const { data, loading, error } = countryData;
+  const { t } = useTranslation();
 
   useEffect(() => {
     let chartMap = am4core.create("worldMapGraph", am4maps.MapChart);
@@ -100,13 +103,13 @@ function WorldMapGraph({ countryData }) {
 
     !loading && !error && drawMap(mapState);
     return () => chartMap.dispose();
-  }, [data, error, loading]);
+  }, [data, error, loading, mapState]);
 
   return (
     <Grid item xs={12} md={6} lg={8}>
       <Paper style={{ height: "100%", position: "relative" }}>
         {loading && !error && <CircularProgress />}
-        <Box p={2}>
+        <Box p={5}>
           <div
             id="worldMapGraph"
             style={{ width: "100%", height: "500px" }}
@@ -123,30 +126,32 @@ function WorldMapGraph({ countryData }) {
               }}
             >
               <Box display="flex" justifyContent="space-between">
-                <Box fontSize="h6.fontSize">Worldwide Infections</Box>
+                <Box fontSize="h6.fontSize">
+                  {t("components.WorldMapGraph.title")}
+                </Box>
                 <Box>
                   <Chip
                     size="small"
                     style={{ backgroundColor: theme.palette.info.main }}
-                    label="Cases"
+                    label={t("components.WorldMapGraph.cases")}
                     onClick={() => setMapState("cases")}
                   />
                   <Chip
                     size="small"
                     style={{ backgroundColor: theme.palette.error.main }}
-                    label="Deaths"
+                    label={t("components.WorldMapGraph.deaths")}
                     onClick={() => setMapState("deaths")}
                   />
                   <Chip
                     size="small"
                     style={{ backgroundColor: theme.palette.warning.main }}
-                    label="Critical"
+                    label={t("components.WorldMapGraph.critical")}
                     onClick={() => setMapState("critical")}
                   />
                   <Chip
                     size="small"
                     style={{ backgroundColor: theme.palette.success.main }}
-                    label="Recoveries"
+                    label={t("components.WorldMapGraph.recovered")}
                     onClick={() => setMapState("recovered")}
                   />
                 </Box>

@@ -2,12 +2,14 @@ import React from "react";
 // import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import SummaryBox from "../SummaryBox/SummaryBox";
+import { useTranslation } from "react-i18next";
 
 // const useStyles = makeStyles((theme) => ({}));
 import { calculateSum } from "../../utils/calculateSum";
 
 export default function SummaryBlock({ summaryData, countryData }) {
   const { data, loading, error } = summaryData;
+  const { t } = useTranslation();
 
   const todayDeaths =
     countryData &&
@@ -17,8 +19,12 @@ export default function SummaryBlock({ summaryData, countryData }) {
     countryData &&
     countryData.data &&
     calculateSum("todayCases", countryData.data);
-  const totalActive =
-    countryData && countryData.data && calculateSum("active", countryData.data);
+  const criticalRate =
+    countryData &&
+    countryData.data &&
+    data &&
+    Math.ceil((data.critical / calculateSum("active", countryData.data)) * 100);
+
   const remainingRecovered =
     countryData &&
     countryData.data &&
@@ -29,50 +35,67 @@ export default function SummaryBlock({ summaryData, countryData }) {
       <Grid container spacing={2}>
         <Grid item xs={12} md={6} lg={6}>
           <SummaryBox
-            title="Infections"
+            title={t("components.SummaryBlock.coronavirusCases")}
             count={data && data.cases}
             type="info"
             loading={loading}
             error={error}
             data={data}
             extraInfo={todayCases}
-            extraInfoText={countryData && countryData.data && "today"}
+            extraInfoText={
+              countryData &&
+              countryData.data &&
+              t("components.SummaryBlock.today")
+            }
           />
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
           <SummaryBox
-            title="Deaths"
+            title={t("components.SummaryBlock.deaths")}
             count={data && data.deaths}
             loading={loading}
             error={error}
             data={data}
             type="error"
             extraInfo={todayDeaths}
-            extraInfoText={countryData && countryData.data && "today"}
+            extraInfoText={
+              countryData &&
+              countryData.data &&
+              t("components.SummaryBlock.today")
+            }
           />
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
           <SummaryBox
-            title="Recoveries"
+            title={t("components.SummaryBlock.recovered")}
             count={data && data.recovered}
             type="success"
             loading={loading}
             error={error}
             data={data}
             extraInfo={remainingRecovered}
-            extraInfoText={countryData && countryData.data && "remaining"}
+            extraInfoText={
+              countryData &&
+              countryData.data &&
+              t("components.SummaryBlock.activeCases")
+            }
           />
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
           <SummaryBox
-            title="Critical"
+            title={t("components.SummaryBlock.seriousOrCritical")}
             count={data && data.critical}
             type="warning"
             loading={loading}
             error={error}
             data={data}
-            extraInfo={totalActive}
-            extraInfoText={countryData && countryData.data && "active cases"}
+            extraInfo={criticalRate}
+            extraSign={"%"}
+            extraInfoText={
+              countryData &&
+              countryData.data &&
+              t("components.SummaryBlock.criticalCasesRate")
+            }
           />
         </Grid>
       </Grid>

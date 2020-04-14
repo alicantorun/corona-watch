@@ -5,11 +5,13 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import CircularProgress from "../CircularProgress/CircularProgress";
+import { useTranslation } from "react-i18next";
 
 am4core.useTheme(am4themes_animated);
 
 function RateGraph({ summaryData }) {
   const { data, loading, error } = summaryData;
+  const { t } = useTranslation();
 
   useEffect(() => {
     let chart = am4core.create("rateGraph", am4charts.RadarChart);
@@ -17,22 +19,22 @@ function RateGraph({ summaryData }) {
     function drawMap(chartType) {
       chart.data = [
         {
-          category: "Critical",
+          category: t("components.RateGraph.critical"),
           value: (data.critical / data.active) * 100,
           full: 100,
         },
         {
-          category: "Death",
+          category: t("components.RateGraph.closedCasesDeaths"),
           value: (data.deaths / (data.cases - data.active)) * 100,
           full: 100,
         },
         {
-          category: "Recovered",
+          category: t("components.RateGraph.closedCasesRecovered"),
           value: (data.recovered / (data.cases - data.active)) * 100,
           full: 100,
         },
         {
-          category: "Active",
+          category: t("components.RateGraph.active"),
           value: 100 - (data.critical / data.active) * 100,
           full: 100,
         },
@@ -119,7 +121,7 @@ function RateGraph({ summaryData }) {
 
     !loading && !error && drawMap();
     return () => chart.dispose();
-  }, [data, error, loading]);
+  }, [data, error, loading, t]);
 
   // });
 
@@ -128,7 +130,7 @@ function RateGraph({ summaryData }) {
       <Paper style={{ height: "100%", position: "relative" }}>
         {!loading && !error && (
           <Box fontSize="h6.fontSize" padding={2}>
-            Rate Distribution
+            {t("components.RateGraph.title")}
           </Box>
         )}
         {loading && !error && <CircularProgress />}

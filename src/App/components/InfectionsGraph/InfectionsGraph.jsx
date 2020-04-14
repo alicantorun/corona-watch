@@ -6,6 +6,7 @@ import CircularProgress from "../CircularProgress/CircularProgress";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import { useTranslation } from "react-i18next";
 
 am4core.useTheme(am4themes_animated);
 
@@ -13,6 +14,7 @@ function InfectionsGraph({ timelineData }) {
   const { data, loading, error } = timelineData;
   const [logMap, setLogMap] = React.useState(false);
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const handleChange = (event) => {
     setLogMap(event.target.checked);
@@ -21,8 +23,8 @@ function InfectionsGraph({ timelineData }) {
   useEffect(() => {
     let chart = am4core.create("lineChart", am4charts.XYChart);
 
-    function createSeriesLine(chart, color, type) {
-      let name = type.charAt(0).toUpperCase() + type.slice(1);
+    function createSeriesLine(chart, color, type, name) {
+      // let name = type.charAt(0).toUpperCase() + type.slice(1);
       let series = chart.series.push(new am4charts.LineSeries());
       series.dataFields.valueY = type;
       series.fill = am4core.color(color);
@@ -43,12 +45,12 @@ function InfectionsGraph({ timelineData }) {
     }
 
     function drawMap(chartType) {
-      chart.numberFormatter.numberFormat = "#a";
-      chart.numberFormatter.bigNumberPrefixes = [
-        { number: 1e3, suffix: "K" },
-        { number: 1e6, suffix: "M" },
-        { number: 1e9, suffix: "B" },
-      ];
+      // chart.numberFormatter.numberFormat = "#a";
+      // chart.numberFormatter.bigNumberPrefixes = [
+      //   { number: 1e3, suffix: "K" },
+      //   { number: 1e6, suffix: "M" },
+      //   { number: 1e9, suffix: "B" },
+      // ];
       // Create axes
       let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
       dateAxis.renderer.minGridDistance = 50;
@@ -58,9 +60,24 @@ function InfectionsGraph({ timelineData }) {
       valueAxis.renderer.labels.template.fill = am4core.color("#adb5bd");
       dateAxis.renderer.labels.template.fill = am4core.color("#adb5bd");
 
-      createSeriesLine(chart, theme.palette.info.main, "cases");
-      createSeriesLine(chart, theme.palette.success.main, "recoveries");
-      createSeriesLine(chart, theme.palette.error.main, "deaths");
+      createSeriesLine(
+        chart,
+        theme.palette.info.main,
+        "cases",
+        t("components.InfectionsGraph.cases")
+      );
+      createSeriesLine(
+        chart,
+        theme.palette.success.main,
+        "recoveries",
+        t("components.InfectionsGraph.recoveries")
+      );
+      createSeriesLine(
+        chart,
+        theme.palette.error.main,
+        "deaths",
+        t("components.InfectionsGraph.deaths")
+      );
 
       chart.data = data;
 
@@ -72,13 +89,13 @@ function InfectionsGraph({ timelineData }) {
 
     !loading && !error && drawMap(logMap);
     return () => chart.dispose();
-  }, [data, error, loading]);
+  }, [data, error, loading, t, logMap]);
 
   return (
     <Grid item xs={12} md={6} lg={8}>
       <Paper style={{ height: "100%", position: "relative" }}>
         {loading && !error && <CircularProgress />}
-        <Box p={2}>
+        <Box p={5}>
           <div id="lineChart" style={{ width: "100%", height: "500px" }}></div>
         </Box>
         {!loading && !error && (
@@ -91,7 +108,9 @@ function InfectionsGraph({ timelineData }) {
             }}
           >
             <Box display="flex" justifyContent="space-between">
-              <Box fontSize="h6.fontSize">Infections History</Box>
+              <Box fontSize="h6.fontSize">
+                {t("components.InfectionsGraph.title")}
+              </Box>
               <Box>
                 <FormControlLabel
                   control={
@@ -104,7 +123,7 @@ function InfectionsGraph({ timelineData }) {
                       }}
                     />
                   }
-                  label="Logarithmic"
+                  label={t("components.InfectionsGraph.log")}
                 />
               </Box>
             </Box>

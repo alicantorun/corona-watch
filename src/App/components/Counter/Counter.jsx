@@ -3,6 +3,7 @@ import Timer from "react-compound-timer";
 import { Paper, Typography, Box, Table, TableRow } from "@material-ui/core";
 import MuiTableCell from "@material-ui/core/TableCell";
 import { makeStyles } from "@material-ui/core/styles";
+import { useTranslation } from "react-i18next";
 
 import { withStyles } from "@material-ui/core/styles";
 
@@ -19,13 +20,14 @@ const TableCell = withStyles((theme) => ({
 
 function Counter() {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Paper className={classes.paperRoot}>
       <Box padding={2}>
         <Typography>
           <Box textAlign="center" fontSize="h4.fontSize" m={1}>
-            Outbreak Started
+            {t("components.Counter.title")}
           </Box>
         </Typography>
 
@@ -50,10 +52,18 @@ function Counter() {
                       </TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell align="center">Days</TableCell>
-                      <TableCell align="center">Hours</TableCell>
-                      <TableCell align="center">Minutes</TableCell>
-                      <TableCell align="center">Seconds</TableCell>
+                      <TableCell align="center">
+                        {t("components.Counter.days")}
+                      </TableCell>
+                      <TableCell align="center">
+                        {t("components.Counter.hours")}
+                      </TableCell>
+                      <TableCell align="center">
+                        {t("components.Counter.minutes")}
+                      </TableCell>
+                      <TableCell align="center">
+                        {t("components.Counter.seconds")}
+                      </TableCell>
                     </TableRow>
                   </Table>
                 </Box>

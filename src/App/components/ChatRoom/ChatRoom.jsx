@@ -1,13 +1,14 @@
 import React from "react";
 import config from "../../../config";
 import io from "socket.io-client";
+import { withTranslation } from "react-i18next";
 
 import { Paper, Grid, Box } from "@material-ui/core/";
 import Typography from "@material-ui/core/Typography";
 
 import BottomBar from "../BottomBar/BottomBar";
 
-class App extends React.Component {
+class ChatRoom extends React.Component {
   constructor(props) {
     super(props);
 
@@ -104,7 +105,7 @@ class App extends React.Component {
           style={{ height: 350, minHeight: "100%", position: "relative" }}
         >
           <Box fontSize="h6.fontSize" padding={2}>
-            Live Chat
+            {this.props.t("components.ChatRoom.title")}
           </Box>
           <Box
             style={{
@@ -136,6 +137,8 @@ class App extends React.Component {
             ></div>
           </Box>
           <BottomBar
+            nameTitle={this.props.t("components.ChatRoom.name")}
+            placeholder={this.props.t("components.ChatRoom.placeholder")}
             content={this.state.content}
             handleContent={this.handleContent.bind(this)}
             handleName={this.handleName.bind(this)}
@@ -148,4 +151,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withTranslation()(ChatRoom);
