@@ -14,7 +14,7 @@ import DistributionGraph from "../../components/DistributionGraph/DistributionGr
 import InfectionRatesBlock from "../../components/InfectionRatesBlock/InfectionRatesBlock";
 import Counter from "../../components/Counter/Counter";
 import Creator from "../../components/Creator/Creator";
-
+import ChatRoom from "../../components/ChatRoom/ChatRoom";
 import { useTranslation } from "react-i18next";
 
 function AppDashboard(props) {
@@ -39,6 +39,7 @@ function AppDashboard(props) {
     <div>
       <Container maxWidth="lg">
         <Grid container spacing={2}>
+          <ChatRoom />
           <SummaryBlock summaryData={summaryData} countryData={countryData} />
           <CountryList countryData={countryData} />
           <WorldMapGraph countryData={countryData} />

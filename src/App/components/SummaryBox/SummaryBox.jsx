@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Divider, Typography, Box } from "@material-ui/core";
+import { Paper, Divider, Box } from "@material-ui/core";
 import clsx from "clsx";
 import CircularProgress from "../CircularProgress/CircularProgress";
 

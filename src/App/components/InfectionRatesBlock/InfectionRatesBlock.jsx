@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 // import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper, Box } from "@material-ui/core";
 import InfectionRateBox from "../InfectionRateBox/InfectionRateBox";
@@ -11,7 +11,7 @@ export default function InfectionRatesBlock({ summaryData }) {
   const { data, loading, error } = summaryData;
 
   return (
-    <Grid container item xs={12} lg={5}>
+    <Grid container item xs={12} md={6} lg={5}>
       <Paper style={{ width: "100%", padding: 16 }}>
         {loading && !error && <CircularProgress />}
         {!loading && !error && (
