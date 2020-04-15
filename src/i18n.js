@@ -7,7 +7,7 @@ i18n
   .use(initReactI18next)
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
-    debug: true,
+    debug: process.env.NODE_ENV !== "development" ? false : true,
     lng: "en",
     fallbackLng: "en",
     defaultNS: "common",
