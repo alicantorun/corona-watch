@@ -74,9 +74,8 @@ function CountryDashboard(props) {
           <SummaryBlock summaryData={summaryData} />
           <RateGraph summaryData={summaryData} />
           <InfectionsGraph timelineData={timelineData} />
-          <InfectionRatesBlock summaryData={summaryData} />
-
           <DistributionGraph type="country" countryData={summaryData} />
+          <InfectionRatesBlock summaryData={summaryData} />
 
           <Grid
             container

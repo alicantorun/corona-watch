@@ -24,12 +24,13 @@ export default function SummaryBox({
   error,
   extraInfo,
   extraInfoText,
-  extraSign,
+  countryToday,
+  countryTodayText,
 }) {
   const classes = useStyles();
 
   return (
-    <Paper>
+    <Paper style={{ height: "100%" }}>
       <Box padding={2}>
         {loading && !error && <CircularProgress />}
         {/* {!loading && error && (
@@ -51,9 +52,10 @@ export default function SummaryBox({
               {count.toLocaleString()}
             </Box>
             <Box fontSize="h6.fontSize" textAlign="right" m={1}>
-              {extraSign && extraSign}
               {extraInfo && extraInfo.toLocaleString()}{" "}
               {extraInfoText && extraInfoText}
+              {countryToday && countryToday.toLocaleString()}{" "}
+              {countryTodayText && countryTodayText}
             </Box>
             <Divider
               className={clsx(

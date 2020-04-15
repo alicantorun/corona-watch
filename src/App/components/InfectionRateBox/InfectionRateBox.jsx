@@ -20,19 +20,21 @@ export default function InfectionRateBox({
   totalCount,
   type,
   color,
+  titleCountry,
+  countCountry,
 }) {
   const classes = useStyles();
 
   return (
-    <Paper style={{ backgroundColor: "#17223b" }}>
+    <Paper style={{ backgroundColor: "#17223b", height: "100%" }}>
       <Box padding={2}>
         <Typography>
           <Box textAlign="center" fontSize="h4.fontSize" m={1} color={color}>
-            {count}
+            {countCountry ? countCountry : count}
           </Box>
         </Typography>
         <Box fontSize="h6.fontSize" textAlign="center" m={1}>
-          {title}
+          {titleCountry ? titleCountry : title}
         </Box>
         <Divider
           className={clsx(

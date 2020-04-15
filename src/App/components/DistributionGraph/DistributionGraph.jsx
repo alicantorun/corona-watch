@@ -6,12 +6,14 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import CircularProgress from "../CircularProgress/CircularProgress";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "@material-ui/core/styles";
 
 am4core.useTheme(am4themes_animated);
 
 function DistributionGraph({ countryData, type }) {
   const { data, loading, error } = countryData;
   const { t } = useTranslation();
+  const theme = useTheme();
 
   function calculateSum(index, array = data) {
     var total = 0;
@@ -39,20 +41,21 @@ function DistributionGraph({ countryData, type }) {
         chart.data.push({
           type: "Recoveries",
           number: data.recovered,
-          color: am4core.color("#10c469"),
+          color: theme.palette.success.main,
         });
         chart.data.push({
           type: "Deaths",
           number: data.deaths,
-          color: am4core.color("#ff5b5b"),
+          color: theme.palette.error.main,
         });
         chart.data.push({
           type: "Critical",
           number: data.critical,
-          color: am4core.color("#f9c851"),
+          color: theme.palette.warning.main,
         });
         pieSeries.dataFields.value = "number";
         pieSeries.dataFields.category = "type";
+        pieSeries.slices.template.propertyFields.fill = "color";
       }
 
       pieSeries.labels.template.disabled = true;
@@ -64,7 +67,7 @@ function DistributionGraph({ countryData, type }) {
 
     !loading && !error && drawMap();
     return () => chart.dispose();
-  }, [data, error, loading]);
+  }, [data, error, loading, t]);
 
   return (
     <Grid item xs={12} md={6} lg={4}>
@@ -72,7 +75,11 @@ function DistributionGraph({ countryData, type }) {
         {loading && !error && <CircularProgress />}
         {!loading && !error && (
           <Box fontSize="h6.fontSize" padding={2}>
-            {t("components.DistributionGraph.title")}
+            {type !== "country"
+              ? t("components.DistributionGraph.title")
+              : `${t("components.DistributionGraph.title")} ${t(
+                  "components.DistributionGraph.countryTitle"
+                )}`}
           </Box>
         )}
         <Box p={2}>

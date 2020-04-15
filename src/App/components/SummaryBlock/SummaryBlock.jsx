@@ -41,6 +41,10 @@ export default function SummaryBlock({ summaryData, countryData }) {
             loading={loading}
             error={error}
             data={data}
+            countryToday={data && data.todayCases}
+            countryTodayText={
+              data && data.todayCases && t("components.SummaryBlock.todayCases")
+            }
             extraInfo={todayCases}
             extraInfoText={
               countryData &&
@@ -56,6 +60,12 @@ export default function SummaryBlock({ summaryData, countryData }) {
             loading={loading}
             error={error}
             data={data}
+            countryToday={data && data.todayDeaths}
+            countryTodayText={
+              data &&
+              data.todayDeaths &&
+              t("components.SummaryBlock.todayDeaths")
+            }
             type="error"
             extraInfo={todayDeaths}
             extraInfoText={
@@ -89,8 +99,12 @@ export default function SummaryBlock({ summaryData, countryData }) {
             loading={loading}
             error={error}
             data={data}
-            extraInfo={criticalRate}
-            extraSign={"%"}
+            extraInfo={
+              Number.isInteger(remainingRecovered)
+                ? remainingRecovered - data.critical
+                : null
+            }
+            // extraSign={"%"}
             extraInfoText={
               countryData &&
               countryData.data &&

@@ -19,9 +19,10 @@ i18n
     saveMissing: true,
     saveMissingTo: "all",
     backend: {
-      projectId: "0b14e8c8-82d7-4b93-9c28-58fba743d4c9",
-      apiKey: "a83abecc-5f31-446e-8453-000f228bdcce",
+      projectId: process.env.REACT_APP_LOCIZE_ID,
+      apiKey: process.env.REACT_APP_LOCIZE_API_KEY,
       referenceLng: "en",
     },
   });
+
 export default i18n;

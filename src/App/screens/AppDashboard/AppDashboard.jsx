@@ -28,7 +28,6 @@ function AppDashboard(props) {
   } = props;
 
   const { summaryData, timelineData, countryData } = globalStatistics;
-  console.log(globalStatistics);
 
   useEffect(() => {
     getGlobalSummaryStatistics();
@@ -47,7 +46,10 @@ function AppDashboard(props) {
           <RateGraph summaryData={summaryData} />
           <InfectionsGraph timelineData={timelineData} />
           <DistributionGraph type="global" countryData={countryData} />
-          <InfectionRatesBlock summaryData={summaryData} />
+          <InfectionRatesBlock
+            summaryData={summaryData}
+            countryData={countryData}
+          />
           <Grid container item xs={12} lg={3}>
             <Counter />
             <Creator />

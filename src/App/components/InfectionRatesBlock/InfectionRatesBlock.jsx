@@ -8,8 +8,10 @@ import { useTranslation } from "react-i18next";
 
 // const useStyles = makeStyles((theme) => ({}));
 
-export default function InfectionRatesBlock({ summaryData }) {
+export default function InfectionRatesBlock({ summaryData, countryData }) {
   const { data, loading, error } = summaryData;
+  const affectedNationsCount =
+    countryData && countryData.data && countryData.data.length;
   const { t } = useTranslation();
 
   return (
@@ -25,7 +27,15 @@ export default function InfectionRatesBlock({ summaryData }) {
               <Grid item xs={6}>
                 <InfectionRateBox
                   title={t("components.InfectionRatesBlock.nationsAffected")}
-                  count={999}
+                  titleCountry={t("components.InfectionRatesBlock.mildCountry")}
+                  count={affectedNationsCount}
+                  countCountry={
+                    data &&
+                    (
+                      ((data.active - data.critical) / data.active) *
+                      100
+                    ).toFixed(2) + "%"
+                  }
                   type="info"
                   color="info.main"
                 />

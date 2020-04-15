@@ -31,7 +31,7 @@ function Counter() {
           </Box>
         </Typography>
 
-        <Timer initialTime={11131200000} direction="forward">
+        <Timer initialTime={11841200000} direction="forward">
           {() => (
             <React.Fragment>
               <Typography>

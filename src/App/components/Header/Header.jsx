@@ -4,6 +4,7 @@ import { AppBar, Toolbar, Typography, Switch } from "@material-ui/core";
 import ThemeContextProvider from "../../../ThemeContextProvider";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
+import { history } from "../../_helpers/history";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
   },
   appbar: {
     alignItems: "center",
+  },
+  typography: {
+    cursor: "pointer",
   },
 }));
 
@@ -29,6 +33,9 @@ export default function Header() {
             variant="h4"
             color="inherit"
             className={classes.typography}
+            onClick={() => {
+              history.push("/");
+            }}
           >
             {t("components.Header.title")}
           </Typography>
