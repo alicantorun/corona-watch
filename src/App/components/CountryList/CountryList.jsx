@@ -50,7 +50,11 @@ export default function CountryList({ countryData }) {
             <Box fontWeight="bold">{data[index].country}</Box>
             <Box>
               <Box component="span" color={theme.palette.info.main}>
-                + {data[index].todayCases.toLocaleString()}{" "}
+                +{" "}
+                {data &&
+                  data[index] &&
+                  data[index].todayCases &&
+                  data[index].todayCases.toLocaleString()}{" "}
                 {t("components.CountryList.cases")}
               </Box>
             </Box>
@@ -63,18 +67,28 @@ export default function CountryList({ countryData }) {
           >
             <Box>
               <Box component="span" color={theme.palette.info.main}>
-                {data[index].cases.toLocaleString()}{" "}
+                {data &&
+                  data[index] &&
+                  data[index].cases &&
+                  data[index].cases.toLocaleString()}{" "}
                 {t("components.CountryList.cases")}
               </Box>{" "}
               &{" "}
               <Box component="span" color={theme.palette.error.main}>
-                {data[index].deaths.toLocaleString()}{" "}
+                {data &&
+                  data[index] &&
+                  data[index].deaths &&
+                  data[index].deaths.toLocaleString()}{" "}
                 {t("components.CountryList.deaths")}
               </Box>
             </Box>
             <Box>
               <Box component="span" color={theme.palette.error.main}>
-                + {data[index].todayDeaths.toLocaleString()}{" "}
+                +{" "}
+                {data &&
+                  data[index] &&
+                  data[index].todayDeaths &&
+                  data[index].todayDeaths.toLocaleString()}{" "}
                 {t("components.CountryList.deaths")}
               </Box>
             </Box>
