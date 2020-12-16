@@ -10,6 +10,7 @@ This project has no longer been maintained.
 - Redis caching
 - Chrono data parsing for statistics via cheerio
 - SPA
+- internatinalisation (Highly scalable language support)
 
 ## Tech Stack
 - React.js
