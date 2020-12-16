@@ -1,5 +1,7 @@
 ## <center>Covid-19 Watch Live Tracker</center>
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+------
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).\
 This project has no longer been maintained.
 
 ## Features
