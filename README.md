@@ -11,6 +11,7 @@ This project has no longer been maintained.
 - Chrono data parsing for statistics via cheerio
 - SPA
 - internatinalisation (Highly scalable language support)
+- amCharts for explicit visualisation
 
 ## Tech Stack
 - React.js
@@ -24,6 +25,7 @@ This project has no longer been maintained.
 - Axios
 - i18next (Internationalisation)
 - Styled Components
+- amCharts
 
 ## Worlwide Statistics Tracker
 
