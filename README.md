@@ -1,4 +1,26 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project has no longer been maintained.
+
+## Features
+- Live chat via Socket.io
+- Aws hosting (EC2, Route 53)
+- Redux & Redux Saga state management
+- Redis caching
+- Chrono data parsing for statistics via cheerio
+- SPA
+
+## Tech Stack
+- React.js
+- Node.js
+- Express.js
+- MongoDB
+- Redis
+- Socket.io
+- Material UI
+- Redux & Redux Saga
+- Axios
+- i18next (Internationalisation)
+- Styled Components
 
 ## Worlwide Statistics Tracker
 
